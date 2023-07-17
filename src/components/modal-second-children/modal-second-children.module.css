@@ -1,0 +1,30 @@
+.img {
+    background-image: url("../../images/graphics.svg");
+    background-repeat: no-repeat;
+    width: 107px;
+    height: 102px;
+    margin: 0 0 60px 0;
+}
+
+.OrderSection {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+}
+
+.number {
+    margin: 36px 0 32px 0;
+}
+
+.numberName {
+    margin: 0 0 60px 0;
+}
+
+.container {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    row-gap: 8px;
+    margin: 0 0 120px 0;
+}

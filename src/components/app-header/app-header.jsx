@@ -8,21 +8,24 @@ function AppHeader() {
         <nav className={styles.header}>
             <ul className={styles.ul}>
                 <li className={styles.block}>
-                    <div className={styles.constructor}>
+                    <a href={'#'} className={styles.constructor + " text text_type_main-default"}>
                         <BurgerIcon type="primary" />
-                        <p className="text text_type_main-default">Конструктор</p>
-                    </div>
-                    <div className={styles.orders}>
+                        Конструктор
+                    </a>
+                    <a href={'#'} className={styles.orders + " text text_type_main-default"}>
                         <ListIcon type="secondary" />
-                        <p className="text text_type_main-default">Лента заказов</p>
-                    </div>
+                        Лента заказов
+                    </a>
                 </li>
                 <li className={styles.image}>
                     <Logo />
                 </li>
-                <li className={styles.office}>
-                    <ProfileIcon type="secondary" />
-                    <p className="text text_type_main-default">Личный кабинет</p>
+                <li className={styles.officeContainer}>
+                    <a href={'#'} className={styles.office + " text text_type_main-default"}>
+                        <ProfileIcon type="secondary" />
+                        Личный кабинет
+                    </a>
+
                 </li>
             </ul>
         </nav>
