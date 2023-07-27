@@ -1,26 +1,20 @@
-import React from 'react'
+import React, {useState} from 'react'
 import BurgerConstructor from '../burger-constructor/burger-constructor'
 import BurgerIngredients from '../burger-ingredients/burger-ingredients'
 import styles from './main.module.css'
 import {ingredientPropType} from "../../utils/prop-types";
 import PropTypes from "prop-types";
+import {useDrag} from "react-dnd";
 
-function AppMain({ingredients, setIsOpen, setIsClickIngridient, setIsClickOrderList, setItem}) {
+
+function AppMain({setItem}) {
 
     return (
-        <div className={styles.main}>
-            <BurgerIngredients setIsOpen = {setIsOpen} ingredients = {ingredients} setIsClickIngridient={setIsClickIngridient} setItem={setItem}/>
-            <BurgerConstructor setIsOpen = {setIsOpen} ingredients = {ingredients} setIsClickOrderList={setIsClickOrderList}/>
-        </div>
+        <main className={styles.main}>
+            <BurgerIngredients setItem={setItem}/>
+            <BurgerConstructor setItem={setItem}/>
+        </main>
     )
 }
-
-BurgerIngredients.propTypes = {
-    ingredients: PropTypes.arrayOf(ingredientPropType).isRequired
-};
-
-BurgerConstructor.propTypes = {
-    ingredients: PropTypes.arrayOf(ingredientPropType).isRequired
-};
 
 export default AppMain

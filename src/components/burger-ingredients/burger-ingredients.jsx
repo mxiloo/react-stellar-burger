@@ -1,12 +1,25 @@
 import React, {useEffect, useState} from "react";
 import styles from './burger-ingredients.module.css';
-import {Counter, CurrencyIcon, Tab} from '@ya.praktikum/react-developer-burger-ui-components';
+import {Counter, Tab} from '@ya.praktikum/react-developer-burger-ui-components';
 import Item from "../burger-ingredients-item/burger-ingredients-item";
 import {element} from "prop-types";
+import {useSelector, useDispatch} from "react-redux";
+import {fetchIngredients} from "../../services/actions/ingredients-api";
 
 const BurgerIngredients = (props) => {
-    const {ingredients, setIsOpen, setIsClickIngridient, setItem} = props;
-    const [current, setCurrent] = React.useState('one')
+    const {setItem} = props;
+    const [current, setCurrent] = React.useState('one');
+
+    const dispatch = useDispatch()
+
+    useEffect(() => {
+        dispatch(fetchIngredients())
+    }, [])
+
+    const ingredients = useSelector(store => store.ingredients.data)
+
+    const [counter, setCounter] = useState(0);
+
     const SortingArray = (type) => {
         return ingredients.filter(element => element.type === type)
     }
@@ -28,29 +41,27 @@ const BurgerIngredients = (props) => {
             <nav className={styles.ingredientsMain + ' custom-scroll'}>
                 <div className={styles.container}>
                     <h2 id='bun' className="text text_type_main-medium">Булки</h2>
-                    <div className={styles.items}>
-                        <Counter count={1} size="default" extraClass="m-1" />
+                    <div className={styles.items} >
                         {SortingArray('bun').map(element => (
-                            <Item setItem={setItem} setIsClickIngridient={setIsClickIngridient} setIsOpen={setIsOpen} item={element} key={element._id}/>
+                            <Item setItem={setItem} item={element} key={element._id} />
                         ))}
                     </div>
                 </div>
 
                 <div className={styles.container}>
                     <h2 id={'sauce'} className="text text_type_main-medium">Соусы</h2>
-                    <div className={styles.items}>
-                        <Counter count={1} size="default" extraClass="m-1" />
+                    <div className={styles.items } >
                         {SortingArray('sauce').map(element => (
-                            <Item setItem={setItem} setIsClickIngridient={setIsClickIngridient} setIsOpen={setIsOpen} item={element} key={element._id}/>
+                            <Item setItem={setItem} item={element} key={element._id} />
                         ))}
                     </div>
                 </div>
 
                 <div className={styles.container}>
                     <h2 id={'main'} className="text text_type_main-medium">Начинки</h2>
-                    <div className={styles.items}>
+                    <div className={styles.items} >
                         {SortingArray('main').map(element => (
-                            <Item setItem={setItem} setIsClickIngridient={setIsClickIngridient} setIsOpen={setIsOpen} item={element} key={element._id}/>
+                            <Item setItem={setItem} item={element} key={element._id} />
                         ))}
                     </div>
                 </div>

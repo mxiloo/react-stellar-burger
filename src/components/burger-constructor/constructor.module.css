@@ -27,6 +27,7 @@
     max-height: calc(100vh - 516px);
     overflow-x: hidden;
     overflow-y: auto;
+    height: 496px;
 }
 
 .topping {
@@ -34,9 +35,12 @@
     flex-direction: row;
     align-items: center;
     column-gap: 8px;
-
 }
 
 .bun {
     margin: 0 0 0 32px;
+}
+
+.dragging {
+    opacity: 0.4;
 }

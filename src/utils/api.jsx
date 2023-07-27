@@ -8,12 +8,7 @@ import React from 'react'
     }
 }
 
-export const responseStatus = (res) => {
-    if (res.ok) {
-        return res.json();
-    }
-    return Promise.reject(`Ошибка ${res.status}`);
-}*/
+*/
 
 
 /*export const getData = () => {
