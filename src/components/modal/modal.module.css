@@ -1,0 +1,28 @@
+.modal {
+    position: fixed;
+    left: 50%;
+    top: 50%;
+    transform: translate(-50%, -50%);
+    width: 720px;
+    height: auto;
+    z-index: 9;
+    background-color: #1C1C21;
+    transition: opacity 0.4s, visibility 0.4s;
+    border-radius: 10%;
+
+}
+
+.nachinka {
+    /*display: flex;
+    flex-direction: row;
+    align-items: center;
+    padding: 40px 0 60px;
+    margin: 0;*/
+}
+
+.close {
+    display: flex;
+    align-items: center;
+    justify-content: flex-end;
+    cursor: pointer;
+}

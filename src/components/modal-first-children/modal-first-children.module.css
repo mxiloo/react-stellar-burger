@@ -1,0 +1,32 @@
+.header {
+    position: absolute;
+    top: 50px;
+    left: 40px;
+}
+
+.nachinka {
+    margin: 20px 0 0 0;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+}
+
+.text {
+    margin: 0;
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    justify-content: center;
+    gap: 20px;
+    list-style-type: none;
+    padding: 0;
+}
+
+.number {
+    margin: 8px 0 60px 0;
+    padding: 0;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}

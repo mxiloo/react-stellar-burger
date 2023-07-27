@@ -1,0 +1,43 @@
+.section {
+    display: flex;
+    flex-direction: column;
+    row-gap: 20px;
+    margin: 40px 0 0 0;
+}
+
+.switch {
+    display: flex;
+    margin: 0 0 20px 0;
+}
+
+.ingredientsMain {
+    display: flex;
+    flex-direction: column;
+    row-gap: 40px;
+    max-height: calc(100vh - 310px);
+    overflow-x: hidden;
+    overflow-y: auto;
+}
+
+.items {
+    position: relative;
+    display: grid;
+    gap: 24px;
+    grid-template-columns: repeat(auto-fit, minmax(250px ,2fr));
+}
+
+.container {
+    display: flex;
+    flex-direction: column;
+    row-gap: 24px
+}
+
+.href {
+    text-decoration: none;
+    color: #8585AD;
+    transition: opacity 0.3ms ease-out;
+}
+
+.href:hover {
+    color: white;
+}

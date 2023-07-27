@@ -1,0 +1,42 @@
+.sectionConstructor {
+    margin: 100px 0 0 0;
+}
+
+.block {
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    justify-content: flex-end;
+}
+
+.countBlock {
+    composes: block;
+    height: 40px;
+    justify-content: flex-end;
+    margin: 40px 0 0 0;
+}
+
+.button {
+    margin: 40px 0 0 40px;
+}
+
+.toppingSection {
+    display: flex;
+    flex-direction: column;
+    gap: 16px;
+    max-height: calc(100vh - 516px);
+    overflow-x: hidden;
+    overflow-y: auto;
+}
+
+.topping {
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    column-gap: 8px;
+
+}
+
+.bun {
+    margin: 0 0 0 32px;
+}
