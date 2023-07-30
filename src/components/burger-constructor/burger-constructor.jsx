@@ -3,97 +3,102 @@ import {ConstructorElement, Button, CurrencyIcon, DragIcon } from '@ya.praktikum
 import styles from './constructor.module.css'
 import {useDispatch, useSelector} from "react-redux";
 import {isOpenModal, isClickOrder} from "../../services/reducers/modal-slice";
-import {fetchIngredients} from "../../services/actions/ingredients-api";
+
 import {setOrder} from "../../services/actions/set-orders-api";
 import {useDrop} from "react-dnd";
-import {store} from "../../services/store";
-import {addIngredient} from "../../services/reducers/burgerSlice";
+
+import {addBun, addIngredient} from "../../services/reducers/burgerSlice";
 import { v4 as uuidv4 } from "uuid";
 import ConstrElement from "../burger-constructor-item/burger-constructor-item";
+import {element} from "prop-types";
 
-const BurgerConstructor = ({setItem}) => {
+const BurgerConstructor = () => {
     const dispatch = useDispatch()
 
     const draggedElements = useSelector(store => store.burger.ingredients);
-    const ingredients = useSelector(store => store.ingredients.data)
+    /*const ingredients = useSelector(store => store.ingredients.data);*/
+    const draggedBun = useSelector(store => store.burger.bun);
 
     const [, dropRef] = useDrop({
         accept: "ingredientItem",
         drop(ingredients) {
-            const newElement = {...ingredients, _constId: uuidv4()}
-            dispatch(addIngredient(newElement))
+            const newElement = {...ingredients, _constId: uuidv4()};
+            /*dispatch(addIngredient(newElement))*/
             /*setTimeout(() => console.log(draggedElements), 1000)*/
+
+            ingredients.type === 'bun' ? dispatch(addBun(newElement)) : (dispatch(addIngredient(newElement)))
         },
     });
 
     const onClick = () => {
         dispatch(isOpenModal(true));
         dispatch(isClickOrder(true));
-        dispatch(setOrder())
+        dispatch(setOrder(
+            [...draggedElements.map(element => element._id),
+            ...draggedBun.map(element => element._id)]
+        ))
     }
 
     return (
         <div className={styles.sectionConstructor} ref={dropRef}>
-
             <div style={{ display: 'flex', flexDirection: 'column', gap: '16px' }}>
                 <>
                     <div className={styles.bun}>
-                        {ingredients.map(item => {
+                        {draggedBun.map(item => {
                             if (item.type === 'bun') {
                                 return (
-                                    <div className={styles.topping} >
+                                    <div className={styles.topping} key={item._constId}>
                                         <ConstructorElement
                                             type="top"
                                             isLocked={true}
-                                            text={item.name}
-                                            price={item.price}
-                                            thumbnail={item.image}
-                                            key={item._id}
+                                            text={draggedBun[0].name}
+                                            price={draggedBun[0].price}
+                                            thumbnail={draggedBun[0].image}
+                                            key={draggedBun[0]._constId}
                                         />
                                     </div>
                                 )
                             }
                         })}
-
                     </div>
 
                     <div className={styles.toppingSection + ' custom-scroll'} >
                         {draggedElements.map((element, index) => {
                             if (element.type !== 'bun') {
                                 return (
-                                    <div>
-                                        {/*<DragIcon type="primary" />*/}
-                                        <ConstrElement setItem={setItem} item={element} index={index} key={element._constId}/>
-                                            {/*<ConstructorElement
-                                                text={element.name}
-                                                price={element.price}
-                                                thumbnail={element.image}
-                                                key={element._constId}
-                                            />*/}
-
-                                    </div>
+                                    <ConstrElement item={element} index={index} key={element._constId}/>
                                 )
                             }
                         })}
                     </div>
 
                     <div className={styles.bun}>
-                        <ConstructorElement
-                            type="bottom"
-                            isLocked={true}
-                            text="Краторная булка N-200i (низ)"
-                            price={200}
-                            thumbnail={"https://code.s3.yandex.net/react/code/bun-02-mobile.png"}
-                        />
+                        {draggedBun.map(item => {
+                            if (item.type === 'bun') {
+                                return (
+                                    <div className={styles.topping} key={item._constId}>
+                                        <ConstructorElement
+                                            type="bottom"
+                                            isLocked={true}
+                                            text={draggedBun[0].name}
+                                            price={draggedBun[0].price}
+                                            thumbnail={draggedBun[0].image}
+                                            key={draggedBun[0]._constId}
+                                        />
+                                    </div>
+                                )
+                            }
+                        })}
                     </div>
                 </>
             </div>
 
             <div className={styles.block}>
                 <div className={styles.countBlock}>
-                    <p className="text text_type_digits-medium">
-                       610
-                    </p>
+                    <span className="text text_type_digits-medium">
+                       {draggedElements.reduce(function (acc, data) {return acc + data.price;}, 0)
+                           + (2 * draggedBun.reduce(function (acc, data) { return acc + data.price; }, 0))}
+                    </span>
                     <CurrencyIcon type="primary" />
                 </div>
                 <div className={styles.button}>

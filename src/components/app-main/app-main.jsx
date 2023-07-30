@@ -12,7 +12,7 @@ function AppMain({setItem}) {
     return (
         <main className={styles.main}>
             <BurgerIngredients setItem={setItem}/>
-            <BurgerConstructor setItem={setItem}/>
+            <BurgerConstructor />
         </main>
     )
 }

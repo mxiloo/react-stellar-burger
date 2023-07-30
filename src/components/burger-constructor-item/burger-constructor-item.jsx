@@ -1,21 +1,25 @@
 import {ConstructorElement, Button, CurrencyIcon, DragIcon } from '@ya.praktikum/react-developer-burger-ui-components';
 import styles from "../burger-constructor/constructor.module.css";
-import React, {useEffect} from "react";
+import React, {useCallback, useEffect} from "react";
 import {useDispatch, useSelector} from "react-redux";
 import {fetchIngredients} from "../../services/actions/ingredients-api";
 import {useDrag, useDrop} from "react-dnd";
-import {changeIngredients} from "../../services/reducers/burgerSlice";
+import {changeIngredients, deleteIngredient} from "../../services/reducers/burgerSlice";
 
-const ConstrElement = ({item, setItem, index}) => {
-    setItem(item)
+const ConstrElement = ({item, index}) => {
 
     const burgerArray = useSelector(store => store.burger.ingredients);
+
     const dispatch = useDispatch();
 
     useEffect(() => {
         dispatch(fetchIngredients())
     }, [])
 
+    // Удаление ингредиента
+    const deleteElement = useCallback((_constId) => {
+        dispatch(deleteIngredient(_constId))
+    })
 
     const findIndex = (item) => {
         return burgerArray.indexOf(item)
@@ -29,20 +33,18 @@ const ConstrElement = ({item, setItem, index}) => {
         })
     });
 
+
+
     const [, dropRef] = useDrop({
         accept: 'constructorItem',
-        hover({ingredient}) {
-            console.log(ingredient._constId === item._constId)
+        drop: ({ingredient}) => {
             if (ingredient._constId === item._constId) return
-
             dispatch(changeIngredients({
                 indexForm: findIndex(ingredient),
                 indexTo: index,
-                ingredient: ingredient,
             }))
         }
     })
-
     return (
         <div className={styles.topping + isDragging ? " dragging" : " "} ref={node => dropRef(dragRef(node))}>
             <DragIcon type="primary"/>
@@ -51,6 +53,7 @@ const ConstrElement = ({item, setItem, index}) => {
                 price={item.price}
                 thumbnail={item.image}
                 key={item._id}
+                handleClose={() => deleteElement(item._constId)}
             />
         </div>
     )

@@ -5,6 +5,7 @@ const initialState = {
     data: [],
     error: '',
     isLoading: false,
+    count: 0
 }
 
 const ingredientsSlice = createSlice({
@@ -23,9 +24,12 @@ const ingredientsSlice = createSlice({
         [fetchIngredients.rejected.type]: (state, action) => {
             state.isLoading = false;
             state.error = action.payload;
+        },
+        counter: (state, action) => {
+            state.count = action.payload
         }
     }
 })
 
-export const {ingredientsUpload, ingredientsUploadError, ingredientsUploading} = ingredientsSlice.actions;
+export const {ingredientsUpload, ingredientsUploadError, ingredientsUploading, counter} = ingredientsSlice.actions;
 export default ingredientsSlice.reducer;

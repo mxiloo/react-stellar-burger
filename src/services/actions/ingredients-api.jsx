@@ -1,12 +1,5 @@
 import {createAsyncThunk} from "@reduxjs/toolkit";
 
-export const responseStatus = (res) => {
-    if (res.ok) {
-        return res.json();
-    }
-    return Promise.reject(`Ошибка ${res.status}`);
-}
-
 export const fetchIngredients = createAsyncThunk(
     'items/get',
     async (_, thunkApi) => {

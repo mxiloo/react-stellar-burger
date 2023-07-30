@@ -1,10 +1,12 @@
-import React, {useEffect, useState} from "react";
+import React, {useEffect, useRef, useState} from "react";
 import styles from './burger-ingredients.module.css';
 import {Counter, Tab} from '@ya.praktikum/react-developer-burger-ui-components';
 import Item from "../burger-ingredients-item/burger-ingredients-item";
 import {element} from "prop-types";
 import {useSelector, useDispatch} from "react-redux";
 import {fetchIngredients} from "../../services/actions/ingredients-api";
+
+import { useInView } from 'react-intersection-observer';
 
 const BurgerIngredients = (props) => {
     const {setItem} = props;
@@ -18,51 +20,74 @@ const BurgerIngredients = (props) => {
 
     const ingredients = useSelector(store => store.ingredients.data)
 
-    const [counter, setCounter] = useState(0);
+    const containerRef = useRef(null)
+    const bunRef = useRef(null)
+    const mainRef = useRef(null)
+    const sauceRef = useRef(null)
+
+    const [inViewBunRef, bunIsInView] = useInView({
+        threshold: 0.1,
+        root: containerRef.current
+    })
+    const [inViewSauceRef, sauceIsInView] = useInView({
+        threshold: 0.3,
+        root: containerRef.current
+    })
+    const [inViewMainRef, mainIsInView] = useInView({
+        threshold: 0.5,
+        root: containerRef.current
+    })
 
     const SortingArray = (type) => {
         return ingredients.filter(element => element.type === type)
     }
+
     return (
         <div className={styles.section}>
             <h1 className="text text_type_main-large">Соберите бургер</h1>
             <div className={styles.switch}>
-                <Tab id='one' value="one" active={current === 'one'} onClick={setCurrent}>
+                <Tab id='one' value="one" active={bunIsInView} onClick={setCurrent}>
                     <a className={styles.href} href={'#bun'}>Булки</a>
                 </Tab>
-                <Tab id='two' value="two" active={current === 'two'} onClick={setCurrent}>
+                <Tab id='two' value="two" active={sauceIsInView && !bunIsInView && !mainIsInView} onClick={setCurrent}>
                     <a className={styles.href} href={'#sauce'}>Соусы</a>
                 </Tab>
-                <Tab id='three' value="three" active={current === 'three'} onClick={setCurrent}>
+                <Tab id='three' value="three" active={mainIsInView && !bunIsInView && !sauceIsInView} onClick={setCurrent}>
                     <a className={styles.href} href={'#main'}>Начинки</a>
                 </Tab>
             </div>
 
-            <nav className={styles.ingredientsMain + ' custom-scroll'}>
-                <div className={styles.container}>
-                    <h2 id='bun' className="text text_type_main-medium">Булки</h2>
-                    <div className={styles.items} >
-                        {SortingArray('bun').map(element => (
-                            <Item setItem={setItem} item={element} key={element._id} />
-                        ))}
+            <nav ref={containerRef} className={styles.ingredientsMain + ' custom-scroll'}>
+                <div className={styles.container} ref={bunRef}>
+                    <div ref={inViewBunRef}>
+                        <h2 id='bun' className="text text_type_main-medium">Булки</h2>
+                        <div className={styles.items} >
+                            {SortingArray('bun').map(element => (
+                                <Item setItem={setItem} item={element} key={element._id} />
+                            ))}
+                        </div>
                     </div>
                 </div>
 
-                <div className={styles.container}>
-                    <h2 id={'sauce'} className="text text_type_main-medium">Соусы</h2>
-                    <div className={styles.items } >
-                        {SortingArray('sauce').map(element => (
-                            <Item setItem={setItem} item={element} key={element._id} />
-                        ))}
+                <div className={styles.container} ref={sauceRef}>
+                    <div ref={inViewSauceRef}>
+                        <h2 id={'sauce'} className="text text_type_main-medium">Соусы</h2>
+                        <div className={styles.items}>
+                            {SortingArray('sauce').map(element => (
+                                <Item setItem={setItem} item={element} key={element._id}/>
+                            ))}
+                        </div>
                     </div>
                 </div>
 
-                <div className={styles.container}>
-                    <h2 id={'main'} className="text text_type_main-medium">Начинки</h2>
-                    <div className={styles.items} >
-                        {SortingArray('main').map(element => (
-                            <Item setItem={setItem} item={element} key={element._id} />
-                        ))}
+                <div className={styles.container} ref={mainRef}>
+                    <div ref={inViewMainRef}>
+                        <h2 id={'main'} className="text text_type_main-medium">Начинки</h2>
+                        <div className={styles.items} >
+                            {SortingArray('main').map(element => (
+                                <Item setItem={setItem} item={element} key={element._id} />
+                            ))}
+                        </div>
                     </div>
                 </div>
             </nav>

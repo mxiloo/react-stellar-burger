@@ -27,6 +27,7 @@
     max-height: calc(100vh - 516px);
     overflow-x: hidden;
     overflow-y: auto;
+    width: 580px;
     height: 496px;
 }
 

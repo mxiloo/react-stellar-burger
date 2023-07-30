@@ -4,6 +4,8 @@ import ingredientsReducer from './reducers/ingredients-slice';
 import orderReducer from './reducers/order-slice';
 import constructorReducer from './reducers/constructor-slice';
 import burgerReducer from './reducers/burgerSlice';
+import orderNumberReducer from './reducers/order-number';
+import totalPriceReducer from './reducers/total-price-slice';
 
 export const store = configureStore({
     reducer: {
@@ -12,5 +14,7 @@ export const store = configureStore({
         order: orderReducer,
         constructorIng: constructorReducer,
         burger: burgerReducer,
+        orderNumber: orderNumberReducer,
+        total: totalPriceReducer
     },
 });

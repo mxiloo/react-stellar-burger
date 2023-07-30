@@ -1,3 +1,4 @@
+/*
 import { createSlice } from "@reduxjs/toolkit";
 
 const initialState = {
@@ -5,7 +6,7 @@ const initialState = {
     draggedIngredients: [],
 };
 
-const burgerConstructorSlice = createSlice({
+export const burgerConstructorSlice = createSlice({
     name: "constructorIngredients",
     initialState,
 
@@ -28,4 +29,4 @@ const burgerConstructorSlice = createSlice({
 
 export const { addBun, addIngredient, deleteIngredient } =
     burgerConstructorSlice.actions;
-export default burgerConstructorSlice.reducer
+export default burgerConstructorSlice.reducer*/
