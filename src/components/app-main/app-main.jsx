@@ -7,12 +7,12 @@ import PropTypes from "prop-types";
 import {useDrag} from "react-dnd";
 
 
-function AppMain({setItem}) {
+function AppMain({setItem, setIsModalOpen}) {
 
     return (
         <main className={styles.main}>
-            <BurgerIngredients setItem={setItem}/>
-            <BurgerConstructor />
+            <BurgerIngredients setItem={setItem} setIsModalOpen={setIsModalOpen}/>
+            <BurgerConstructor setIsModalOpen={setIsModalOpen}/>
         </main>
     )
 }

@@ -1,7 +1,8 @@
 import {createAsyncThunk} from "@reduxjs/toolkit";
 import {addNumber} from "../reducers/order-number";
+import {BASE_URL} from "./ingredients-api";
 
-export const responseStatus = (res) => {
+export const checkResponse = (res) => {
     if (res.ok) {
         return res.json();
     }
@@ -10,10 +11,9 @@ export const responseStatus = (res) => {
 
 export const setOrder = createAsyncThunk(
     'order/post',
-    async (dataId, {dispatch,thunkApi}) => {
-        try {
-            console.log(dataId)
-            const res = await fetch('https://norma.nomoreparties.space/api/orders', {
+    async (dataId, {dispatch}) => {
+            /*console.log(dataId)*/
+            const res = await fetch(`${BASE_URL}/orders`, {
                 method: "POST",
                 headers: {
                     'Content-Type': 'application/json',
@@ -22,11 +22,8 @@ export const setOrder = createAsyncThunk(
                     'ingredients': dataId
                 }),
             })
-            const number = await responseStatus(res).then(res => res.order.number)
+            const number = await checkResponse(res).then(res => res.order.number)
             dispatch(addNumber(number))
-        } catch (err) {
-            return thunkApi.rejectWithValue('Произошла ошибка')
-        }
     }
 )
 

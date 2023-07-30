@@ -12,7 +12,7 @@ import { v4 as uuidv4 } from "uuid";
 import ConstrElement from "../burger-constructor-item/burger-constructor-item";
 import {element} from "prop-types";
 
-const BurgerConstructor = () => {
+const BurgerConstructor = ({setIsModalOpen}) => {
     const dispatch = useDispatch()
 
     const draggedElements = useSelector(store => store.burger.ingredients);
@@ -31,6 +31,7 @@ const BurgerConstructor = () => {
     });
 
     const onClick = () => {
+        setIsModalOpen(true)
         dispatch(isOpenModal(true));
         dispatch(isClickOrder(true));
         dispatch(setOrder(
@@ -41,8 +42,7 @@ const BurgerConstructor = () => {
 
     return (
         <div className={styles.sectionConstructor} ref={dropRef}>
-            <div style={{ display: 'flex', flexDirection: 'column', gap: '16px' }}>
-                <>
+            <div className={styles.bunStyle}>
                     <div className={styles.bun}>
                         {draggedBun.map(item => {
                             if (item.type === 'bun') {
@@ -51,7 +51,7 @@ const BurgerConstructor = () => {
                                         <ConstructorElement
                                             type="top"
                                             isLocked={true}
-                                            text={draggedBun[0].name}
+                                            text={draggedBun[0].name + ' (верх)'}
                                             price={draggedBun[0].price}
                                             thumbnail={draggedBun[0].image}
                                             key={draggedBun[0]._constId}
@@ -80,7 +80,7 @@ const BurgerConstructor = () => {
                                         <ConstructorElement
                                             type="bottom"
                                             isLocked={true}
-                                            text={draggedBun[0].name}
+                                            text={draggedBun[0].name + ' (низ)'}
                                             price={draggedBun[0].price}
                                             thumbnail={draggedBun[0].image}
                                             key={draggedBun[0]._constId}
@@ -90,7 +90,6 @@ const BurgerConstructor = () => {
                             }
                         })}
                     </div>
-                </>
             </div>
 
             <div className={styles.block}>

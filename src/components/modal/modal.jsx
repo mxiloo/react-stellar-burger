@@ -9,12 +9,12 @@ import {isOpenModal, isClickIngredient, isClickOrder} from "../../services/reduc
 
 const modalRoot = document.getElementById('react-modals')
 
-function Modal({children}) {
+function IngredientDetails({children, setIsModalOpen}) {
 
     const dispatch = useDispatch()
 
     const onClose = () => {
-        dispatch(isOpenModal(false))
+        setIsModalOpen(false)
         dispatch(isClickIngredient(false))
         dispatch(isClickOrder(false))
     }
@@ -22,9 +22,7 @@ function Modal({children}) {
     useEffect(() => {
         function closeEsc(e) {
             if(e.key === 'Escape') {
-                dispatch(isOpenModal(false))
-                dispatch(isClickIngredient(false))
-                dispatch(isClickOrder(false))
+                onClose()
             }
         }
         document.addEventListener('keydown', closeEsc)
@@ -36,11 +34,9 @@ function Modal({children}) {
         (
             <>
                 <div className={styles.modal}>
-                    <div>
                         <div className={styles.close + ' mr-10 mt-15'}>
                             <CloseIcon type="primary" onClick={onClose}/>
                         </div>
-                    </div>
                     {children}
                 </div>
                 <Overlay onClose={onClose}/>
@@ -49,5 +45,5 @@ function Modal({children}) {
     );
 }
 
-export default Modal
+export default IngredientDetails
 

@@ -1,22 +1,15 @@
 import React, {useEffect, useRef, useState} from "react";
 import styles from './burger-ingredients.module.css';
-import {Counter, Tab} from '@ya.praktikum/react-developer-burger-ui-components';
+import {Tab} from '@ya.praktikum/react-developer-burger-ui-components';
 import Item from "../burger-ingredients-item/burger-ingredients-item";
 import {element} from "prop-types";
-import {useSelector, useDispatch} from "react-redux";
-import {fetchIngredients} from "../../services/actions/ingredients-api";
+import {useSelector} from "react-redux";
 
 import { useInView } from 'react-intersection-observer';
 
 const BurgerIngredients = (props) => {
-    const {setItem} = props;
+    const {setItem, setIsModalOpen} = props;
     const [current, setCurrent] = React.useState('one');
-
-    const dispatch = useDispatch()
-
-    useEffect(() => {
-        dispatch(fetchIngredients())
-    }, [])
 
     const ingredients = useSelector(store => store.ingredients.data)
 
@@ -38,7 +31,7 @@ const BurgerIngredients = (props) => {
         root: containerRef.current
     })
 
-    const SortingArray = (type) => {
+    const sortingArray = (type) => {
         return ingredients.filter(element => element.type === type)
     }
 
@@ -62,8 +55,8 @@ const BurgerIngredients = (props) => {
                     <div ref={inViewBunRef}>
                         <h2 id='bun' className="text text_type_main-medium">Булки</h2>
                         <div className={styles.items} >
-                            {SortingArray('bun').map(element => (
-                                <Item setItem={setItem} item={element} key={element._id} />
+                            {sortingArray('bun').map(element => (
+                                <Item setItem={setItem} item={element} key={element._id} setIsModalOpen={setIsModalOpen}/>
                             ))}
                         </div>
                     </div>
@@ -73,8 +66,8 @@ const BurgerIngredients = (props) => {
                     <div ref={inViewSauceRef}>
                         <h2 id={'sauce'} className="text text_type_main-medium">Соусы</h2>
                         <div className={styles.items}>
-                            {SortingArray('sauce').map(element => (
-                                <Item setItem={setItem} item={element} key={element._id}/>
+                            {sortingArray('sauce').map(element => (
+                                <Item setItem={setItem} item={element} key={element._id} setIsModalOpen={setIsModalOpen}/>
                             ))}
                         </div>
                     </div>
@@ -84,8 +77,8 @@ const BurgerIngredients = (props) => {
                     <div ref={inViewMainRef}>
                         <h2 id={'main'} className="text text_type_main-medium">Начинки</h2>
                         <div className={styles.items} >
-                            {SortingArray('main').map(element => (
-                                <Item setItem={setItem} item={element} key={element._id} />
+                            {sortingArray('main').map(element => (
+                                <Item setItem={setItem} item={element} key={element._id} setIsModalOpen={setIsModalOpen}/>
                             ))}
                         </div>
                     </div>

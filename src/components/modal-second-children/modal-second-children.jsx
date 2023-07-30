@@ -3,7 +3,7 @@ import styles from './modal-second-children.module.css'
 import {useSelector} from "react-redux";
 
 
-function Orders () {
+function OrderDetails () {
 
     const orderNum = useSelector(store => store.orderNumber.number)
 
@@ -23,4 +23,4 @@ function Orders () {
     )
 }
 
-export default Orders
+export default OrderDetails

@@ -5,7 +5,7 @@ import {useDispatch, useSelector} from "react-redux";
 import {isOpenModal, isClickIngredient} from "../../services/reducers/modal-slice";
 import {useDrag} from "react-dnd";
 
-function Item ({item, setItem}) {
+function Item ({item, setItem, setIsModalOpen}) {
 
     const draggedElements = useSelector(store => store.burger.ingredients);
     const draggedBuns = useSelector(store => store.burger.bun)
@@ -23,6 +23,7 @@ function Item ({item, setItem}) {
         dispatch(isOpenModal(true))
         dispatch(isClickIngredient(true))
         setItem(item)
+        setIsModalOpen(true)
     };
 
     const [, dragRef] = useDrag({

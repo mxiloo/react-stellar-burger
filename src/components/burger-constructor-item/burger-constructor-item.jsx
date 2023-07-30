@@ -2,7 +2,6 @@ import {ConstructorElement, Button, CurrencyIcon, DragIcon } from '@ya.praktikum
 import styles from "../burger-constructor/constructor.module.css";
 import React, {useCallback, useEffect} from "react";
 import {useDispatch, useSelector} from "react-redux";
-import {fetchIngredients} from "../../services/actions/ingredients-api";
 import {useDrag, useDrop} from "react-dnd";
 import {changeIngredients, deleteIngredient} from "../../services/reducers/burgerSlice";
 
@@ -11,10 +10,6 @@ const ConstrElement = ({item, index}) => {
     const burgerArray = useSelector(store => store.burger.ingredients);
 
     const dispatch = useDispatch();
-
-    useEffect(() => {
-        dispatch(fetchIngredients())
-    }, [])
 
     // Удаление ингредиента
     const deleteElement = useCallback((_constId) => {
