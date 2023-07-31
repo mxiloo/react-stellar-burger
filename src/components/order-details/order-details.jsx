@@ -1,11 +1,12 @@
 import React from 'react';
-import styles from './modal-second-children.module.css'
+import styles from './order-details.module.css'
 import {useSelector} from "react-redux";
 
 
 function OrderDetails () {
 
     const orderNum = useSelector(store => store.orderNumber.number)
+    /*const {number} = useSelector(store => store.order)*/
 
     return (
         <div className={styles.OrderSection}>

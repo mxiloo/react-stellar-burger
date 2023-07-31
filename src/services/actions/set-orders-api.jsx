@@ -1,6 +1,7 @@
 import {createAsyncThunk} from "@reduxjs/toolkit";
 import {addNumber} from "../reducers/order-number";
-import {BASE_URL} from "./ingredients-api";
+import {BASE_URL} from "../../utils/api";
+
 
 export const checkResponse = (res) => {
     if (res.ok) {
@@ -12,18 +13,18 @@ export const checkResponse = (res) => {
 export const setOrder = createAsyncThunk(
     'order/post',
     async (dataId, {dispatch}) => {
-            /*console.log(dataId)*/
-            const res = await fetch(`${BASE_URL}/orders`, {
-                method: "POST",
-                headers: {
-                    'Content-Type': 'application/json',
-                },
-                body: JSON.stringify({
-                    'ingredients': dataId
-                }),
-            })
-            const number = await checkResponse(res).then(res => res.order.number)
-            dispatch(addNumber(number))
+        /*console.log(dataId)*/
+        const res = await fetch(`${BASE_URL}/orders`, {
+            method: "POST",
+            headers: {
+                'Content-Type': 'application/json',
+            },
+            body: JSON.stringify({
+                'ingredients': dataId
+            }),
+        })
+        const number = await checkResponse(res).then(res => res.order.number)
+        dispatch(addNumber(number))
     }
 )
 

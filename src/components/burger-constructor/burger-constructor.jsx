@@ -1,5 +1,5 @@
 import React, {useCallback, useEffect, useState} from 'react'
-import {ConstructorElement, Button, CurrencyIcon, DragIcon } from '@ya.praktikum/react-developer-burger-ui-components';
+import {ConstructorElement, Button, CurrencyIcon} from '@ya.praktikum/react-developer-burger-ui-components';
 import styles from './constructor.module.css'
 import {useDispatch, useSelector} from "react-redux";
 import {isOpenModal, isClickOrder} from "../../services/reducers/modal-slice";
@@ -12,7 +12,7 @@ import { v4 as uuidv4 } from "uuid";
 import ConstrElement from "../burger-constructor-item/burger-constructor-item";
 import {element} from "prop-types";
 
-const BurgerConstructor = ({setIsModalOpen}) => {
+const BurgerConstructor = () => {
     const dispatch = useDispatch()
 
     const draggedElements = useSelector(store => store.burger.ingredients);
@@ -23,15 +23,11 @@ const BurgerConstructor = ({setIsModalOpen}) => {
         accept: "ingredientItem",
         drop(ingredients) {
             const newElement = {...ingredients, _constId: uuidv4()};
-            /*dispatch(addIngredient(newElement))*/
-            /*setTimeout(() => console.log(draggedElements), 1000)*/
-
             ingredients.type === 'bun' ? dispatch(addBun(newElement)) : (dispatch(addIngredient(newElement)))
         },
     });
 
     const onClick = () => {
-        setIsModalOpen(true)
         dispatch(isOpenModal(true));
         dispatch(isClickOrder(true));
         dispatch(setOrder(

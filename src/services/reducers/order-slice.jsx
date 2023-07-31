@@ -4,14 +4,14 @@ import { setOrder } from "../actions/set-orders-api";
 const initialState = {
     data: [],
     error: '',
-    isLoading: false
+    isLoading: false,
 }
 
 const orderSlice = createSlice({
     name: 'order',
     initialState,
     extraReducers: {
-        [setOrder.fulfilled.type]: (state) => {
+        [setOrder.fulfilled.type]: (state, action) => {
             state.isLoading = false;
             state.error = '';
         },
@@ -26,7 +26,5 @@ const orderSlice = createSlice({
         }
     }
 })
-
-
 
 export default orderSlice.reducer;

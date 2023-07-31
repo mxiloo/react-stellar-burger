@@ -2,13 +2,14 @@ import React, {useEffect, useRef, useState} from "react";
 import styles from './burger-ingredients.module.css';
 import {Tab} from '@ya.praktikum/react-developer-burger-ui-components';
 import Item from "../burger-ingredients-item/burger-ingredients-item";
-import {element} from "prop-types";
+import PropTypes, {element} from "prop-types";
 import {useSelector} from "react-redux";
 
 import { useInView } from 'react-intersection-observer';
+import AppMain from "../app-main/app-main";
 
-const BurgerIngredients = (props) => {
-    const {setItem, setIsModalOpen} = props;
+const BurgerIngredients = ({setItem}) => {
+
     const [current, setCurrent] = React.useState('one');
 
     const ingredients = useSelector(store => store.ingredients.data)
@@ -56,7 +57,7 @@ const BurgerIngredients = (props) => {
                         <h2 id='bun' className="text text_type_main-medium">Булки</h2>
                         <div className={styles.items} >
                             {sortingArray('bun').map(element => (
-                                <Item setItem={setItem} item={element} key={element._id} setIsModalOpen={setIsModalOpen}/>
+                                <Item setItem={setItem} item={element} key={element._id} />
                             ))}
                         </div>
                     </div>
@@ -67,7 +68,7 @@ const BurgerIngredients = (props) => {
                         <h2 id={'sauce'} className="text text_type_main-medium">Соусы</h2>
                         <div className={styles.items}>
                             {sortingArray('sauce').map(element => (
-                                <Item setItem={setItem} item={element} key={element._id} setIsModalOpen={setIsModalOpen}/>
+                                <Item setItem={setItem} item={element} key={element._id} />
                             ))}
                         </div>
                     </div>
@@ -78,7 +79,7 @@ const BurgerIngredients = (props) => {
                         <h2 id={'main'} className="text text_type_main-medium">Начинки</h2>
                         <div className={styles.items} >
                             {sortingArray('main').map(element => (
-                                <Item setItem={setItem} item={element} key={element._id} setIsModalOpen={setIsModalOpen}/>
+                                <Item setItem={setItem} item={element} key={element._id} />
                             ))}
                         </div>
                     </div>
@@ -88,6 +89,10 @@ const BurgerIngredients = (props) => {
 
         </div>
     )
+}
+
+BurgerIngredients.prototype = {
+    setItem: PropTypes.func
 }
 
 export default BurgerIngredients

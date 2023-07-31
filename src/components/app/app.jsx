@@ -4,9 +4,9 @@ import styles from "./app.module.css";
 import AppHeader from "../app-header/app-header";
 
 import AppMain from "../app-main/app-main";
-import IngredientDetails from '../modal/modal'
-import ModalChildren from "../modal-first-children/modal-first-children";
-import OrderDetails from "../modal-second-children/modal-second-children";
+import Modal from '../modal/modal'
+import IngredientDetails from "../ingredient-details/ingredient-details";
+import OrderDetails from "../order-details/order-details";
 import {useDispatch, useSelector} from "react-redux";
 import {fetchIngredients} from "../../services/actions/ingredients-api";
 
@@ -15,9 +15,8 @@ import {fetchIngredients} from "../../services/actions/ingredients-api";
 function App() {
 
     const [item, setItem] = useState(null);
-    const [isModalOpen, setIsModalOpen] = useState(false);
+    const isModalOpen = useSelector(store => store.modal.isOpen)
 
-    /*const isOpen = useSelector(store => store.modal.isOpen)*/
     const isClickIngridient = useSelector(store => store.modal.clickIngredient)
     const isClickOrderList = useSelector(store => store.modal.clickOrder)
 
@@ -30,16 +29,16 @@ function App() {
     return (
         <div className={styles.app}>
             <AppHeader/>
-            <AppMain setItem={setItem} setIsModalOpen={setIsModalOpen}/>
+            <AppMain setItem={setItem} />
             {isModalOpen && (
-                <IngredientDetails setIsModalOpen={setIsModalOpen}>
+                <Modal >
                     {
                         isClickIngridient &&
-                        <ModalChildren item={item}/> ||
+                        <IngredientDetails item={item}/> ||
                         isClickOrderList &&
                         <OrderDetails/>
                     }
-                </IngredientDetails>
+                </Modal>
             )
             }
         </div>

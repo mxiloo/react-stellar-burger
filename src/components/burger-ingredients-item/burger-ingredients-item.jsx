@@ -4,8 +4,11 @@ import styles from './item.module.css'
 import {useDispatch, useSelector} from "react-redux";
 import {isOpenModal, isClickIngredient} from "../../services/reducers/modal-slice";
 import {useDrag} from "react-dnd";
+import PropTypes from "prop-types";
+import BurgerIngredients from "../burger-ingredients/burger-ingredients";
+import {ingredientPropType} from "../../utils/prop-types";
 
-function Item ({item, setItem, setIsModalOpen}) {
+function Item ({item, setItem}) {
 
     const draggedElements = useSelector(store => store.burger.ingredients);
     const draggedBuns = useSelector(store => store.burger.bun)
@@ -23,7 +26,6 @@ function Item ({item, setItem, setIsModalOpen}) {
         dispatch(isOpenModal(true))
         dispatch(isClickIngredient(true))
         setItem(item)
-        setIsModalOpen(true)
     };
 
     const [, dragRef] = useDrag({
@@ -45,6 +47,11 @@ function Item ({item, setItem, setIsModalOpen}) {
             </div>
         </button>
     )
+}
+
+Item.prototype = {
+    item: PropTypes.object,
+    setItem: PropTypes.func.isRequired
 }
 
 export default Item;

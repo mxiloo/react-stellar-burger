@@ -5,18 +5,16 @@ import {CloseIcon} from "@ya.praktikum/react-developer-burger-ui-components";
 import styles from './modal.module.css'
 import Overlay from "../modal-overlay/overlay";
 import {useDispatch} from "react-redux";
-import {isOpenModal, isClickIngredient, isClickOrder} from "../../services/reducers/modal-slice";
+import {isOpenModal, isClickIngredient, isClickOrder, closeModal} from "../../services/reducers/modal-slice";
 
 const modalRoot = document.getElementById('react-modals')
 
-function IngredientDetails({children, setIsModalOpen}) {
+function Modal({children}) {
 
     const dispatch = useDispatch()
 
     const onClose = () => {
-        setIsModalOpen(false)
-        dispatch(isClickIngredient(false))
-        dispatch(isClickOrder(false))
+        dispatch(closeModal(false))
     }
 
     useEffect(() => {
@@ -45,5 +43,5 @@ function IngredientDetails({children, setIsModalOpen}) {
     );
 }
 
-export default IngredientDetails
+export default Modal
 

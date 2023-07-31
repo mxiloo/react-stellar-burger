@@ -4,7 +4,6 @@ const initialState = {
     isOpen: false,
     clickIngredient: false,
     clickOrder: false,
-    item: {}
 }
 
 
@@ -21,8 +20,10 @@ const modalSlice = createSlice({
         isClickOrder: (state, action) => {
             state.clickOrder = action.payload
         },
-        isItem: (state, action) => {
-            state.item = action.payload
+        closeModal: (state, action) => {
+            state.isOpen = action.payload
+            state.clickIngredient = action.payload
+            state.clickOrder = action.payload
         }
     }
 })
@@ -31,7 +32,7 @@ export const {
     isOpenModal,
     isClickIngredient,
     isClickOrder,
-    isItem
+    closeModal
 } = modalSlice.actions
 
 export default modalSlice.reducer;
