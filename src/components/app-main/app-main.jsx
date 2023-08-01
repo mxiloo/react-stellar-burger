@@ -18,8 +18,8 @@ function AppMain({setItem}) {
     )
 }
 
-AppMain.prototype = {
-    setItem: PropTypes.func
+AppMain.propTypes = {
+    setItem: PropTypes.func.isRequired
 }
 
 export default AppMain

@@ -49,8 +49,8 @@ function Item ({item, setItem}) {
     )
 }
 
-Item.prototype = {
-    item: PropTypes.object,
+Item.propType = {
+    item: PropTypes.object.isRequired,
     setItem: PropTypes.func.isRequired
 }
 

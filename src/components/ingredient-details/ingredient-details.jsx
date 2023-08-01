@@ -33,8 +33,8 @@ function IngredientDetails ({item}) {
     )
 }
 
-IngredientDetails.prototype = {
-    item: ingredientPropType
+IngredientDetails.propType = {
+    item: ingredientPropType.isRequired
 }
 
 export default IngredientDetails

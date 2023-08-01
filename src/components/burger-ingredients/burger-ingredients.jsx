@@ -91,8 +91,8 @@ const BurgerIngredients = ({setItem}) => {
     )
 }
 
-BurgerIngredients.prototype = {
-    setItem: PropTypes.func
+BurgerIngredients.propType = {
+    setItem: PropTypes.func.isRequired
 }
 
 export default BurgerIngredients
