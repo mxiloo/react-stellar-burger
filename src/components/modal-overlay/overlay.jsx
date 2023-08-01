@@ -8,7 +8,7 @@ function Overlay({onClose}) {
     )
 }
 
-Overlay.prototype = {
+Overlay.propType = {
     onClose: PropTypes.func.isRequired
 }
 
