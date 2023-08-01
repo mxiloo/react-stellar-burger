@@ -49,7 +49,7 @@ function Item ({item, setItem}) {
     )
 }
 
-Item.propType = {
+Item.propTypes = {
     item: PropTypes.object.isRequired,
     setItem: PropTypes.func.isRequired
 }

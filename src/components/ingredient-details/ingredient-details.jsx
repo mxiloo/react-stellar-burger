@@ -33,7 +33,7 @@ function IngredientDetails ({item}) {
     )
 }
 
-IngredientDetails.propType = {
+IngredientDetails.propTypes = {
     item: ingredientPropType.isRequired
 }
 

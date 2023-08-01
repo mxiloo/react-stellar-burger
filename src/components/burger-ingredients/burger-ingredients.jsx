@@ -91,7 +91,7 @@ const BurgerIngredients = ({setItem}) => {
     )
 }
 
-BurgerIngredients.propType = {
+BurgerIngredients.propTypes = {
     setItem: PropTypes.func.isRequired
 }
 
