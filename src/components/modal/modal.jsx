@@ -4,23 +4,23 @@ import ReactDOM from "react-dom";
 import {CloseIcon} from "@ya.praktikum/react-developer-burger-ui-components";
 import styles from './modal.module.css'
 import Overlay from "../modal-overlay/overlay";
-import Orders from "../modal-second-children/modal-second-children";
-import ModalChildren from "../modal-first-children/modal-first-children";
+import {useDispatch} from "react-redux";
+import {isOpenModal, isClickIngredient, isClickOrder, closeModal} from "../../services/reducers/modal-slice";
 
 const modalRoot = document.getElementById('react-modals')
 
-function Modal({setIsOpen, children, setIsClickIngridient, setIsClickOrderList}) {
+function Modal({children}) {
+
+    const dispatch = useDispatch()
 
     const onClose = () => {
-        setIsOpen(false)
-        setIsClickIngridient(false)
-        setIsClickOrderList(false)
+        dispatch(closeModal(false))
     }
 
     useEffect(() => {
         function closeEsc(e) {
             if(e.key === 'Escape') {
-                setIsOpen(false)
+                onClose()
             }
         }
         document.addEventListener('keydown', closeEsc)
@@ -32,11 +32,9 @@ function Modal({setIsOpen, children, setIsClickIngridient, setIsClickOrderList})
         (
             <>
                 <div className={styles.modal}>
-                    <div className={styles.nachinka}>
                         <div className={styles.close + ' mr-10 mt-15'}>
                             <CloseIcon type="primary" onClick={onClose}/>
                         </div>
-                    </div>
                     {children}
                 </div>
                 <Overlay onClose={onClose}/>
@@ -46,3 +44,4 @@ function Modal({setIsOpen, children, setIsClickIngridient, setIsClickOrderList})
 }
 
 export default Modal
+

@@ -5,7 +5,7 @@ import {BurgerIcon, ListIcon, Logo, ProfileIcon, Tab} from '@ya.praktikum/react-
 
 function AppHeader() {
     return (
-        <nav className={styles.header}>
+        <header className={styles.header}>
             <ul className={styles.ul}>
                 <li className={styles.block}>
                     <a href={'#'} className={styles.constructor + " text text_type_main-default"}>
@@ -28,7 +28,7 @@ function AppHeader() {
 
                 </li>
             </ul>
-        </nav>
+        </header>
     )
 }
 

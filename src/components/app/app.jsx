@@ -5,60 +5,42 @@ import AppHeader from "../app-header/app-header";
 
 import AppMain from "../app-main/app-main";
 import Modal from '../modal/modal'
-import ModalChildren from "../modal-first-children/modal-first-children";
-import Orders from "../modal-second-children/modal-second-children";
+import IngredientDetails from "../ingredient-details/ingredient-details";
+import OrderDetails from "../order-details/order-details";
+import {useDispatch, useSelector} from "react-redux";
+import {fetchIngredients} from "../../services/actions/ingredients-api";
 
 
 
 function App() {
 
-
-    const [componnentsArray, setComponnentsArray] = useState([]);
-    const [isOpen, setIsOpen] = useState(false);
-    const [isClickIngridient, setIsClickIngridient] = useState(false);
-    const [isClickOrderList, setIsClickOrderList] = useState(false);
     const [item, setItem] = useState(null);
+    const isModalOpen = useSelector(store => store.modal.isOpen)
 
+    const isClickIngridient = useSelector(store => store.modal.clickIngredient)
+    const isClickOrderList = useSelector(store => store.modal.clickOrder)
 
-    const responseStatus = (res) => {
-        if (res.ok) {
-            return res.json();
-        }
-        return Promise.reject(`Ошибка ${res.status}`);
-    }
-    const getData = () => {
-        return (
-           fetch('https://norma.nomoreparties.space/api/ingredients')
-                .then(responseStatus)
-                .then((res) => {
-                    setComponnentsArray(res.data)
-                })
-        )
-    }
+    const dispatch = useDispatch();
 
     useEffect(() => {
-        getData()
+        dispatch(fetchIngredients())
     }, [])
 
     return (
         <div className={styles.app}>
             <AppHeader/>
-            <AppMain setIsOpen={setIsOpen} ingredients={componnentsArray} setIsClickOrderList={setIsClickOrderList} setIsClickIngridient={setIsClickIngridient} setItem={setItem}/>
-            {isOpen && (
-                <>
-                    <Modal
-                        setIsOpen={setIsOpen}
-                        setIsClickIngridient={setIsClickIngridient}
-                        setIsClickOrderList={setIsClickOrderList}>
-
-                        {isClickIngridient &&
-                            <ModalChildren item={item}/> ||
-                            isClickOrderList && <Orders/>}
-                    </Modal>
-                </>
+            <AppMain setItem={setItem} />
+            {isModalOpen && (
+                <Modal >
+                    {
+                        isClickIngridient &&
+                        <IngredientDetails item={item}/> ||
+                        isClickOrderList &&
+                        <OrderDetails/>
+                    }
+                </Modal>
             )
             }
-
         </div>
     );
 }

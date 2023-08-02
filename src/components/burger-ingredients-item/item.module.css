@@ -18,6 +18,7 @@
 }
 
 .button {
+    position: relative;
     background: none;
     color: inherit;
     border: none;

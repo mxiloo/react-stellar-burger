@@ -1,30 +1,34 @@
-import React from 'react'
+import {setOrder} from "../services/actions/set-orders-api";
 
-/*export const config = {
-    baseUrl: 'https://norma.nomoreparties.space/api',
-    headers: {
-        authorization: '2cdae549-d4cc-4251-8eef-46d5577a6d11',
-        'Content-Type': 'application/json'
-    }
-}
+export const BASE_URL = 'https://norma.nomoreparties.space/api'
 
-export const responseStatus = (res) => {
+export const checkResponse = (res) => {
     if (res.ok) {
         return res.json();
     }
     return Promise.reject(`Ошибка ${res.status}`);
-}*/
+}
 
+function request(endpoint, options) {
+    return fetch(`${BASE_URL}${endpoint}`, options).then(checkResponse)
+}
 
-/*export const getData = () => {
-    return fetch(`${config.baseUrl}/ingredients`, {
-        headers: config.headers
+/*export const makeOrder = (dataId) => {
+    return request(`/orders`, {
+        method: "POST",
+        headers: {
+            'Content-Type': 'application/json',
+        },
+        body: JSON.stringify({
+            'ingredients': dataId
+        }).then(res => res.order.number)
     })
-        .then(responseStatus)
-    /!*.then((res) => {
-        setComponnentsArray(res.data)
-    })*!/
 }*/
+
+export const getIngredients = () => request(`/ingredients`).then(base => base.data)
+
+
+
 
 
 
