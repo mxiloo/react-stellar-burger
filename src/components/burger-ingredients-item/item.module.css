@@ -27,3 +27,8 @@
     cursor: pointer;
     outline: inherit;
 }
+
+.link {
+    text-decoration: none;
+    color: white;
+}

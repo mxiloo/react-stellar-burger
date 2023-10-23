@@ -1,7 +1,12 @@
 .header {
-    position: absolute;
+    /*position: absolute;
     top: 50px;
-    left: 40px;
+    left: 40px;*/
+}
+
+.box {
+    display: flex;
+    flex-direction: row;
 }
 
 .container {
