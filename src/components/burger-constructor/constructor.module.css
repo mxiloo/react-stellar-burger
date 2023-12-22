@@ -51,3 +51,10 @@
 .dragging {
     opacity: 0.4;
 }
+
+.link {
+    color: white;
+    text-decoration: none;
+    width: 214px;
+    height: 64px;
+}

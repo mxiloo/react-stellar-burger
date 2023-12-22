@@ -1,4 +1,5 @@
 import {setOrder} from "../services/actions/set-orders-api";
+import {createAsyncThunk} from "@reduxjs/toolkit";
 
 export const BASE_URL = 'https://norma.nomoreparties.space/api'
 
@@ -26,7 +27,6 @@ function request(endpoint, options) {
 }*/
 
 export const getIngredients = () => request(`/ingredients`).then(base => base.data)
-
 
 
 

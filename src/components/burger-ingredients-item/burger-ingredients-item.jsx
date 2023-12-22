@@ -7,6 +7,7 @@ import {useDrag} from "react-dnd";
 import PropTypes from "prop-types";
 import BurgerIngredients from "../burger-ingredients/burger-ingredients";
 import {ingredientPropType} from "../../utils/prop-types";
+import {Link, useLocation} from "react-router-dom";
 
 function Item ({item, setItem}) {
 
@@ -33,11 +34,13 @@ function Item ({item, setItem}) {
         item: item
     });
 
+    const location = useLocation();
+    /*<Link to={{pathname:`/ingredient-details/${item._id}`, state:{background : location}}} className={styles.link}>*/
     return (
+        <Link to={`/ingredient-details/${item._id}`} className={styles.link} state={{background : location}}>
         <button onClick={onClick} type={"button"} className={styles.button}>
             {counter > 0 && <Counter count={counter} size='default' />}
             <div className={styles.item} ref={dragRef}>
-
                 <img src={item.image} alt={item.name}/>
                 <div className={styles.container}>
                     <span className="text text_type_digits-default">{item.price}</span>
@@ -46,6 +49,7 @@ function Item ({item, setItem}) {
                 <span className={styles.name + " text text_type_main-default"}>{item.name}</span>
             </div>
         </button>
+        </Link>
     )
 }
 

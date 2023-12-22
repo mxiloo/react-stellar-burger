@@ -1,30 +1,49 @@
 import React from "react";
 import styles from './Header.module.css';
 import {BurgerIcon, ListIcon, Logo, ProfileIcon, Tab} from '@ya.praktikum/react-developer-burger-ui-components';
+import {NavLink} from "react-router-dom";
 
 
 function AppHeader() {
+    const switchClassName = ({isActive}) => (isActive ? `${styles.link_active}` : `${styles.link}`);
     return (
+
         <header className={styles.header}>
             <ul className={styles.ul}>
                 <li className={styles.block}>
-                    <a href={'#'} className={styles.constructor + " text text_type_main-default"}>
-                        <BurgerIcon type="primary" />
-                        Конструктор
-                    </a>
-                    <a href={'#'} className={styles.orders + " text text_type_main-default"}>
-                        <ListIcon type="secondary" />
-                        Лента заказов
-                    </a>
+                    <NavLink to='/' className={switchClassName}>
+
+                        <div className={styles.container}>
+                            <BurgerIcon type="primary"/>
+                            <span className={styles.text + " text text_type_main-default"}>
+                                Конструктор
+                            </span>
+                        </div>
+
+                    </NavLink>
+                    <NavLink to='/orderFeed' className={switchClassName}>
+                        <div className={styles.container}>
+                            <ListIcon type="secondary"/>
+                            <span className={styles.text + " text text_type_main-default"}>
+                                Лента заказов
+                            </span>
+                        </div>
+                    </NavLink>
                 </li>
                 <li className={styles.image}>
-                    <Logo />
+                    <NavLink to='/' className={switchClassName}>
+                        <Logo />
+                    </NavLink>
                 </li>
                 <li className={styles.officeContainer}>
-                    <a href={'#'} className={styles.office + " text text_type_main-default"}>
+                    <NavLink to='/profile' className={switchClassName}>
+                        <div className={styles.container}>
                         <ProfileIcon type="secondary" />
-                        Личный кабинет
-                    </a>
+                        <span className={styles.text + " text text_type_main-default"}>
+                            Личный кабинет
+                        </span>
+                        </div>
+                    </NavLink>
 
                 </li>
             </ul>

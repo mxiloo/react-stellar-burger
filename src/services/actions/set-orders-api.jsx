@@ -3,7 +3,7 @@ import {addNumber} from "../reducers/order-number";
 import {BASE_URL} from "../../utils/api";
 
 
-export const checkResponse = (res) => {
+const checkResponse = (res) => {
     if (res.ok) {
         return res.json();
     }
