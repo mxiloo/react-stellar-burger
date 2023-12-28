@@ -4,15 +4,15 @@ import styles from './item.module.css'
 import {useDispatch, useSelector} from "react-redux";
 import {isOpenModal, isClickIngredient} from "../../services/reducers/modal-slice";
 import {useDrag} from "react-dnd";
-import PropTypes from "prop-types";
-import BurgerIngredients from "../burger-ingredients/burger-ingredients";
-import {ingredientPropType} from "../../utils/prop-types";
 import {Link, useLocation} from "react-router-dom";
+import {setItem} from "../../services/reducers/item-slice";
+import {TIngredients} from "../../types/types";
+import {draggedBunSelector, draggedElementsSelector} from "../../services/selectors/selectors";
 
-function Item ({item, setItem}) {
+function Item ({item}: {item: TIngredients}) {
 
-    const draggedElements = useSelector(store => store.burger.ingredients);
-    const draggedBuns = useSelector(store => store.burger.bun)
+    const draggedElements = useSelector(draggedElementsSelector) as TIngredients[];
+    const draggedBuns = useSelector(draggedBunSelector) as TIngredients[];
 
     const counter = useMemo(() => {
         return item.type === 'bun'
@@ -26,7 +26,7 @@ function Item ({item, setItem}) {
         /*dispatch(isItem(item))*/
         dispatch(isOpenModal(true))
         dispatch(isClickIngredient(true))
-        setItem(item)
+        dispatch(setItem(item))
     };
 
     const [, dragRef] = useDrag({
@@ -35,7 +35,6 @@ function Item ({item, setItem}) {
     });
 
     const location = useLocation();
-    /*<Link to={{pathname:`/ingredient-details/${item._id}`, state:{background : location}}} className={styles.link}>*/
     return (
         <Link to={`/ingredient-details/${item._id}`} className={styles.link} state={{background : location}}>
         <button onClick={onClick} type={"button"} className={styles.button}>
@@ -51,11 +50,6 @@ function Item ({item, setItem}) {
         </button>
         </Link>
     )
-}
-
-Item.propTypes = {
-    item: PropTypes.object.isRequired,
-    setItem: PropTypes.func.isRequired
 }
 
 export default Item;

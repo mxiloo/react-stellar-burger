@@ -43,7 +43,7 @@ function Profile() {
                     </div>
 
                     <div className={styles.textBox}>
-                        <Button type='button' htmlType='reset' className={styles.exit} onClick={onClick}>
+                        <Button htmlType='reset' className={styles.exit} onClick={onClick}>
                 <span className={`${styles.textBtn} text text_type_main-medium`}>
                     Выход
                 </span>
@@ -58,7 +58,6 @@ function Profile() {
             <span className={`${styles.text} text text_type_main-default text_color_inactive mt-20`}>
                 В этом разделе вы можете <br /> изменить свои персональные данные
             </span>
-
 
         </div>
     )

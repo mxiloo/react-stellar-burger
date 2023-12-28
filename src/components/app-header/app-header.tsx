@@ -1,11 +1,16 @@
 import React from "react";
 import styles from './Header.module.css';
-import {BurgerIcon, ListIcon, Logo, ProfileIcon, Tab} from '@ya.praktikum/react-developer-burger-ui-components';
+import {BurgerIcon, ListIcon, Logo, ProfileIcon} from '@ya.praktikum/react-developer-burger-ui-components';
 import {NavLink} from "react-router-dom";
 
 
 function AppHeader() {
-    const switchClassName = ({isActive}) => (isActive ? `${styles.link_active}` : `${styles.link}`);
+
+    type TIsActive = {
+        isActive: boolean
+    }
+
+    const switchClassName = ({isActive}: TIsActive) => (isActive ? `${styles.link_active}` : `${styles.link}`);
     return (
 
         <header className={styles.header}>

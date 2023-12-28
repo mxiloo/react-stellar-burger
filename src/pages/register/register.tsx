@@ -1,7 +1,7 @@
 import styles from "./register.module.css";
 import {Button, EmailInput, Input, PasswordInput} from "@ya.praktikum/react-developer-burger-ui-components";
 import {Link, useNavigate} from "react-router-dom";
-import {useState} from "react";
+import React, {useState} from "react";
 import {useDispatch} from "react-redux";
 import {registerUser} from "../../services/actions/user";
 
@@ -16,17 +16,17 @@ function Register() {
 
     const navigate = useNavigate();
 
-    const onChangeName = (evt) => {
+    const onChangeName = (evt: React.ChangeEvent<HTMLInputElement>) => {
         setName(evt.target.value)
     }
-    const onChangeEmail = (evt) => {
+    const onChangeEmail = (evt: React.ChangeEvent<HTMLInputElement>) => {
         setEmail(evt.target.value);
     };
-    const onChangePass = (evt) => {
+    const onChangePass = (evt: React.ChangeEvent<HTMLInputElement>) => {
         setPassword(evt.target.value);
     };
 
-    const onClick = (evt) => {
+    const onClick = (evt: React.FormEvent) => {
         evt.preventDefault();
         dispatch(registerUser(name, email, password));
         navigate('/');

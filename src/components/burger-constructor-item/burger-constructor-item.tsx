@@ -4,23 +4,38 @@ import React, {useCallback, useEffect} from "react";
 import {useDispatch, useSelector} from "react-redux";
 import {useDrag, useDrop} from "react-dnd";
 import {changeIngredients, deleteIngredient} from "../../services/reducers/burgerSlice";
+import {draggedElementsSelector} from "../../services/selectors/selectors";
+import {TIngredients, TIngredientsArray} from "../../types/types";
 
-const ConstrElement = ({item, index}) => {
+type TConstrElement = {
+    item: TIngredients,
+    index: number
+}
 
-    const burgerArray = useSelector(store => store.burger.ingredients);
+type TDragItem = {
+    ingredient: TIngredients
+};
+
+type TCollectedProps = {
+    isDragging: boolean
+};
+
+const ConstrElement = ({item, index}: TConstrElement) => {
+
+    const burgerArray = useSelector(draggedElementsSelector) as TIngredientsArray
 
     const dispatch = useDispatch();
 
     // Удаление ингредиента
-    const deleteElement = useCallback((_constId) => {
+    const deleteElement = useCallback((_constId: number) => {
         dispatch(deleteIngredient(_constId))
-    })
+    }, [])
 
-    const findIndex = (item) => {
+    const findIndex = (item: TIngredients) => {
         return burgerArray.indexOf(item)
     }
 
-    const [{isDragging}, dragRef] = useDrag({
+    const [{isDragging}, dragRef] = useDrag<TDragItem, unknown, TCollectedProps>({
         type: 'constructorItem',
         item: {ingredient: item},
         collect: (monitor) => ({
@@ -28,9 +43,7 @@ const ConstrElement = ({item, index}) => {
         })
     });
 
-
-
-    const [, dropRef] = useDrop({
+    const [, dropRef] = useDrop<TDragItem, unknown, unknown>({
         accept: 'constructorItem',
         drop: ({ingredient}) => {
             if (ingredient._constId === item._constId) return

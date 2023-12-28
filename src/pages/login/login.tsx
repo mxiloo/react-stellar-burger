@@ -1,6 +1,6 @@
 import styles from './login.module.css';
 import { EmailInput, PasswordInput, Button } from '@ya.praktikum/react-developer-burger-ui-components';
-import {useState} from "react";
+import React, {useState} from "react";
 import {Link} from "react-router-dom";
 import {useDispatch} from "react-redux";
 import {login} from "../../services/actions/user";
@@ -10,10 +10,10 @@ function Login () {
     const [email, setEmail] = useState("");
     const [password, setPassword] = useState("");
 
-    const onChangeEmail = (evt) => {
+    const onChangeEmail = (evt: React.ChangeEvent<HTMLInputElement>) => {
         setEmail(evt.target.value);
     };
-    const onChangePass = (evt) => {
+    const onChangePass = (evt: React.ChangeEvent<HTMLInputElement>) => {
         setPassword(evt.target.value);
     };
 

@@ -1,10 +1,8 @@
 import React from 'react';
 import styles from './ingredient-details.module.css';
-import PropTypes from "prop-types";
-import {ingredientPropType} from "../../utils/prop-types";
+import {TIngredients} from "../../types/types";
 
-
-function IngredientDetails ({el}) {
+function IngredientDetails ({el}: {el: TIngredients | undefined}) {
 
     return (
             <div>
@@ -33,12 +31,5 @@ function IngredientDetails ({el}) {
             </div>
     )
 }
-
-IngredientDetails.propTypes = {
-    el: PropTypes.shape({
-        _id: PropTypes.string,
-        // определите здесь другие ожидаемые свойства
-    }),
-};
 
 export default IngredientDetails

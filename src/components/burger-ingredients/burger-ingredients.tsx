@@ -1,18 +1,18 @@
-import React, {useEffect, useRef, useState} from "react";
+import React, {useRef} from "react";
 import styles from './burger-ingredients.module.css';
 import {Tab} from '@ya.praktikum/react-developer-burger-ui-components';
 import Item from "../burger-ingredients-item/burger-ingredients-item";
-import PropTypes, {element} from "prop-types";
 import {useSelector} from "react-redux";
 
 import { useInView } from 'react-intersection-observer';
-import AppMain from "../app-main/app-main";
+import {ingredientsSelector} from "../../services/selectors/selectors";
+import {TIngredientsArray} from "../../types/types";
 
-const BurgerIngredients = ({setItem}) => {
+const BurgerIngredients = () => {
 
     const [current, setCurrent] = React.useState('one');
 
-    const ingredients = useSelector(store => store.ingredients.data)
+    const ingredients = useSelector(ingredientsSelector) as TIngredientsArray
 
     const containerRef = useRef(null)
     const bunRef = useRef(null)
@@ -32,7 +32,7 @@ const BurgerIngredients = ({setItem}) => {
         root: containerRef.current
     })
 
-    const sortingArray = (type) => {
+    const sortingArray = (type: string) => {
         return ingredients.filter(element => element.type === type)
     }
 
@@ -40,13 +40,13 @@ const BurgerIngredients = ({setItem}) => {
         <div className={styles.section}>
             <h1 className="text text_type_main-large">Соберите бургер</h1>
             <div className={styles.switch}>
-                <Tab id='one' value="one" active={bunIsInView} onClick={setCurrent}>
+                <Tab value="one" active={bunIsInView} onClick={setCurrent}>
                     <a className={styles.href} href={'#bun'}>Булки</a>
                 </Tab>
-                <Tab id='two' value="two" active={sauceIsInView && !bunIsInView && !mainIsInView} onClick={setCurrent}>
+                <Tab value="two" active={sauceIsInView && !bunIsInView && !mainIsInView} onClick={setCurrent}>
                     <a className={styles.href} href={'#sauce'}>Соусы</a>
                 </Tab>
-                <Tab id='three' value="three" active={mainIsInView && !bunIsInView && !sauceIsInView} onClick={setCurrent}>
+                <Tab value="three" active={mainIsInView && !bunIsInView && !sauceIsInView} onClick={setCurrent}>
                     <a className={styles.href} href={'#main'}>Начинки</a>
                 </Tab>
             </div>
@@ -57,7 +57,7 @@ const BurgerIngredients = ({setItem}) => {
                         <h2 id='bun' className="text text_type_main-medium">Булки</h2>
                         <div className={styles.items} >
                             {sortingArray('bun').map(element => (
-                                <Item setItem={setItem} item={element} key={element._id} />
+                                <Item item={element} key={element._id} />
                             ))}
                         </div>
                     </div>
@@ -68,7 +68,7 @@ const BurgerIngredients = ({setItem}) => {
                         <h2 id={'sauce'} className="text text_type_main-medium">Соусы</h2>
                         <div className={styles.items}>
                             {sortingArray('sauce').map(element => (
-                                <Item setItem={setItem} item={element} key={element._id} />
+                                <Item item={element} key={element._id} />
                             ))}
                         </div>
                     </div>
@@ -79,7 +79,7 @@ const BurgerIngredients = ({setItem}) => {
                         <h2 id={'main'} className="text text_type_main-medium">Начинки</h2>
                         <div className={styles.items} >
                             {sortingArray('main').map(element => (
-                                <Item setItem={setItem} item={element} key={element._id} />
+                                <Item item={element} key={element._id} />
                             ))}
                         </div>
                     </div>
@@ -89,10 +89,6 @@ const BurgerIngredients = ({setItem}) => {
 
         </div>
     )
-}
-
-BurgerIngredients.propTypes = {
-    setItem: PropTypes.func.isRequired
 }
 
 export default BurgerIngredients

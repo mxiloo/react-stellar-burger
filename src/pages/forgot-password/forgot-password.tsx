@@ -1,3 +1,4 @@
+import React from 'react';
 import styles from './forgot-password.module.css'
 import {useState} from "react";
 import {Button, EmailInput} from "@ya.praktikum/react-developer-burger-ui-components";
@@ -13,7 +14,7 @@ function ForgotPassword() {
 
     const [email, setEmail] = useState('')
 
-    const onChangeEmail = (evt) => {
+    const onChangeEmail = (evt: React.ChangeEvent<HTMLInputElement>) => {
         setEmail(evt.target.value);
     };
 
