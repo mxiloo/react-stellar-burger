@@ -5,6 +5,8 @@ const initialState = {
     ingredients: [],
 }
 
+
+
 export const burgerSlice = createSlice({
     name: 'burger',
     initialState,
@@ -15,6 +17,7 @@ export const burgerSlice = createSlice({
         },
         addBun: (store, action) => {
             store.bun = [action.payload];
+            // console.log(action.payload)
         },
         changeIngredients: (store, action) => {
             const {indexForm, indexTo} = action.payload;

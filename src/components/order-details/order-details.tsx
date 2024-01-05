@@ -1,12 +1,11 @@
 import React from 'react';
 import styles from './order-details.module.css'
 import {useSelector} from "react-redux";
-
+import {orderNumSelector} from "../../services/selectors/selectors";
 
 function OrderDetails () {
 
-    const orderNum = useSelector(store => store.orderNumber.number)
-    /*const {number} = useSelector(store => store.order)*/
+    const orderNum: number = useSelector(orderNumSelector);
 
     return (
         <div className={styles.OrderSection}>
@@ -19,7 +18,6 @@ function OrderDetails () {
                 <p className="text text_type_main-small">Ваш заказ начали готовить</p>
                 <p className="text text_type_main-default text_color_inactive">Дождитесь готовности на орбитальной станции</p>
             </div>
-
         </div>
     )
 }

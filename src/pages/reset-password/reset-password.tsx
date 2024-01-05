@@ -1,7 +1,7 @@
 import styles from "../forgot-password/forgot-password.module.css";
 import {Button, Input, PasswordInput} from "@ya.praktikum/react-developer-burger-ui-components";
 import {NavLink, useNavigate} from "react-router-dom";
-import {useState} from "react";
+import React, {useState} from "react";
 import {useDispatch} from "react-redux";
 import {resetPassword} from "../../services/actions/user";
 
@@ -13,11 +13,11 @@ function ResetPassword() {
     const [password, setPassword] = useState('');
     const [code, setCode] = useState('')
 
-    const onChangePassword = (evt) => {
+    const onChangePassword = (evt: React.ChangeEvent<HTMLInputElement>) => {
         setPassword(evt.target.value);
     };
 
-    const onChangeCode = (evt) => {
+    const onChangeCode = (evt: React.ChangeEvent<HTMLInputElement>) => {
         setCode(evt.target.value);
     };
 

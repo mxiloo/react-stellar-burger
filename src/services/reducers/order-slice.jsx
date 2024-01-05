@@ -1,17 +1,18 @@
 import { createSlice } from "@reduxjs/toolkit";
-import { setOrder } from "../actions/set-orders-api";
+import {setOrder} from "../actions/set-orders-api";
 
 const initialState = {
     data: [],
     error: '',
     isLoading: false,
+    number: ''
 }
 
 const orderSlice = createSlice({
     name: 'order',
     initialState,
     extraReducers: {
-        [setOrder.fulfilled.type]: (state, action) => {
+        [setOrder.fulfilled.type]: (state) => {
             state.isLoading = false;
             state.error = '';
         },

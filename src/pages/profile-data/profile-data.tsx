@@ -1,33 +1,36 @@
+import React from 'react';
 import {useState} from "react";
 import {useDispatch, useSelector} from "react-redux";
 import styles from './profile-data.module.css'
 import {Button, EmailInput, Input, PasswordInput} from "@ya.praktikum/react-developer-burger-ui-components";
 import {changeDataUser} from "../../services/actions/user";
+import {userSelector} from "../../services/selectors/selectors";
+import {TUser} from "../../types/types";
 
 
 function ProfileData() {
 
     const dispatch = useDispatch()
 
-    const user = useSelector((store) => store.user.user)
+    const user = useSelector(userSelector) as TUser
 
     const [name, setName] = useState(user.name)
     const [email, setEmail] = useState(user.email)
     const [password, setPassword] = useState('')
 
-    const handleChangeData = (e) => {
+    const handleChangeData = (e: React.FormEvent) => {
         e.preventDefault();
         dispatch(changeDataUser(name, email))
     }
 
-    const handleCancelChanges = (e) => {
+    const handleCancelChanges = (e: React.FormEvent) => {
         e.preventDefault();
         setName(user.name)
         setEmail(user.email)
         setPassword('')
     };
 
-    console.log(password)
+    // console.log(password)
 
     return (
         <form className={styles.form}>
@@ -67,8 +70,6 @@ function ProfileData() {
                     Сохранить
                 </Button>
             </div>
-
-
         </form>
     )
 }

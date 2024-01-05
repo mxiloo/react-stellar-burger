@@ -10,23 +10,31 @@ import {useDrop} from "react-dnd";
 import {addBun, addIngredient} from "../../services/reducers/burgerSlice";
 import {v4 as uuidv4} from "uuid";
 import ConstrElement from "../burger-constructor-item/burger-constructor-item";
-import {element} from "prop-types";
 import {NavLink, useLocation, useNavigate} from "react-router-dom";
+import {TIngredients, TUser} from "../../types/types";
+import {
+    draggedBunSelector,
+    draggedElementsSelector,
+    userSelector
+} from "../../services/selectors/selectors";
 
 const BurgerConstructor = () => {
+
     const dispatch = useDispatch()
 
     const location = useLocation()
 
     const navigate = useNavigate()
 
-    const user = useSelector((store) => store.user.user)
+    const user = useSelector(userSelector) as TUser
 
-    const draggedElements = useSelector(store => store.burger.ingredients);
-    /*const ingredients = useSelector(store => store.ingredients.data);*/
-    const draggedBun = useSelector(store => store.burger.bun);
+    const draggedElements = useSelector(draggedElementsSelector) as TIngredients[]
 
-    const [, dropRef] = useDrop({
+    const draggedBun = useSelector(draggedBunSelector) as TIngredients[]
+
+    let dataId: string[] = [...draggedElements.map(element => element._id), ...draggedBun.map(element => element._id)]
+
+    const [, dropRef] = useDrop<TIngredients, unknown, unknown>({
         accept: "ingredientItem",
         drop(ingredients) {
             const newElement = {...ingredients, _constId: uuidv4()};
@@ -38,10 +46,7 @@ const BurgerConstructor = () => {
         if (user !== null) {
             dispatch(isOpenModal(true));
             dispatch(isClickOrder(true));
-            dispatch(setOrder(
-                [...draggedElements.map(element => element._id),
-                    ...draggedBun.map(element => element._id)]
-            ))
+            dispatch(setOrder(dataId));
         } else {
             navigate('/login')
         }

@@ -1,19 +1,16 @@
 import React from 'react'
-import {useState, useEffect} from 'react'
+import {useEffect} from 'react'
 import styles from "./app.module.css";
 import AppHeader from "../app-header/app-header";
 
-import AppMain from "../app-main/app-main";
 import Modal from '../modal/modal'
-import IngredientDetails from "../ingredient-details/ingredient-details";
 import OrderDetails from "../order-details/order-details";
 import {useDispatch, useSelector} from "react-redux";
 import {fetchIngredients} from "../../services/actions/ingredients-api";
-import {Route, Routes, useLocation, useNavigate} from "react-router-dom";
+import {Route, Routes, useLocation} from "react-router-dom";
 import Home from "../../pages/home";
 import Profile from "../../pages/profile/profile";
 import OrderFeed from "../../pages/order-feed/order-feed";
-import IngredientDetailsPage from "../../pages/ingredient-details-page/ingredient-details-page";
 import NotFound from "../../pages/404-page/not-found";
 import IngredientDetailPage from "../../pages/ingredient-details-page/ingredient-details-page";
 import Login from "../../pages/login/login";
@@ -23,21 +20,15 @@ import ProfileData from "../../pages/profile-data/profile-data";
 import ProfileOrders from "../../pages/prodile-orders/profile-orders";
 import ForgotPassword from "../../pages/forgot-password/forgot-password";
 import ResetPassword from "../../pages/reset-password/reset-password";
-
+import {isClickOrderListSelector} from "../../services/selectors/selectors";
 
 function App() {
 
-    const [item, setItem] = useState(null);
-    const isModalOpen = useSelector(store => store.modal.isOpen)
-
-    const isClickIngredient = useSelector(store => store.modal.clickIngredient)
-    const isClickOrderList = useSelector(store => store.modal.clickOrder)
+    // const [item, setItem] = useState(null);
+    const isClickOrderList = useSelector(isClickOrderListSelector)
 
     const location = useLocation();
     const background = location.state && location.state.background;
-
-    /*console.log(ingredients)*/
-    /* console.log(item)*/
 
     const dispatch = useDispatch();
 
@@ -59,7 +50,7 @@ function App() {
                 </Route>
                 <Route path="/register" element={<OnlyUnAuth component={<Register />}/>}/>
                 <Route path="/login" element={<OnlyUnAuth component={<Login />}/>}/>
-                <Route path='/' element={<Home setItem={setItem} />} />
+                <Route path='/' element={<Home />} />
                 <Route path='/orderFeed' element={<OrderFeed />} />
                 <Route path='/ingredient-details/:id' element={<IngredientDetailPage />} />
                 <Route path='*' element={<NotFound />}/>
@@ -78,7 +69,7 @@ function App() {
             {isClickOrderList && (
                 <Routes>
                     <Route path='/order' element={
-                        <Modal>
+                        <Modal title={null}>
 
                             <OrderDetails />
 
@@ -86,9 +77,6 @@ function App() {
                     }>
                     </Route>
                 </Routes>
-
-
-
             )
             }
         </div>
