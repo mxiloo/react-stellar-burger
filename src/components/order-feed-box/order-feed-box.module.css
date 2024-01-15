@@ -1,0 +1,84 @@
+.container {
+    background-color: #1C1C21;
+    border-radius: 40px;
+    display: flex;
+    flex-direction: column;
+    gap: 24px;
+    padding: 24px;
+    position: relative;
+}
+
+.topBox {
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+}
+
+.date {
+    color: #8585AD;
+}
+
+.bottomContainer {
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+    height: 72px;
+}
+
+.imagesContainer {
+    margin-left: -15px;
+}
+
+.imagesContainer:nth-child(1) {
+    margin-left: 0;
+}
+
+.sumBox {
+    display: flex;
+    flex-direction: row;
+    gap: 8px;
+    align-items: center;
+}
+
+.images {
+    display: flex;
+    flex-direction: row;
+}
+
+.ingredient {
+    border-radius: 50%;
+    border: 2px solid rgb(128,26,178);
+    background-color: #131316;
+    width: 70px;
+    height: 70px;
+    position: relative;
+    object-fit: cover;
+}
+
+.imagesContainerCount {
+    background-color: #131316;
+    border-radius: 50%;
+    border: 2px solid rgb(128,26,178);
+    width: 70px;
+    height: 70px;
+    margin-left: -15px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    position: relative;
+}
+
+.imagesContainerCount img {
+    opacity: 0.5;
+}
+
+.ingredientCount {
+    border-radius: 50%;
+    width: 70px;
+    height: 70px;
+    object-fit: cover;
+}
+
+.count {
+    position: absolute;
+}

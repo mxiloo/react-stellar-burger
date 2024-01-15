@@ -6,28 +6,34 @@ import styles from './modal.module.css'
 import Overlay from "../modal-overlay/overlay";
 import {useDispatch} from "react-redux";
 import {closeModal} from "../../services/reducers/modal-slice";
-import {useNavigate} from "react-router-dom";
+import {useLocation, useNavigate} from "react-router-dom";
 
 const modalRoot = document.getElementById('react-modals') as HTMLElement
 
 type TModal = {
     children: ReactNode,
-    title: JSX.Element | null
+    title: JSX.Element | null | string
 }
 
 function Modal({children, title}: TModal) {
 
     const dispatch = useDispatch()
     const navigate = useNavigate()
+    const location = useLocation();
 
     const onClose = () => {
-        dispatch(closeModal(false))
-        navigate('/')
+        dispatch(closeModal(false));
+        if (location.pathname.includes("/ingredient-details")) {
+            navigate('/');
+        } else if (location.pathname.includes("/orderFeed")) {
+            navigate('/orderFeed');
+        } else if (location.pathname.includes("/profile/orders")) {
+            navigate('/profile/orders')
+        }
     }
 
     useEffect(() => {
         function closeEsc(e: KeyboardEvent) {
-            console.log(e)
             if (e.key === 'Escape') {
                 onClose()
             }

@@ -1,0 +1,66 @@
+.section {
+    width: 1280px;
+    margin: 40px auto 0;
+}
+
+.h2 {
+    margin: 0;
+}
+
+.ordersBox {
+    max-width: 620px;
+}
+
+.orders {
+    display: flex;
+    flex-direction: column;
+    gap: 16px;
+}
+
+.content {
+    display: flex;
+    flex-direction: row;
+    gap: 60px;
+    margin: 20px auto 0;
+}
+
+.link {
+    text-decoration: none;
+    color: white;
+}
+
+.leftSide {
+    display: flex;
+    flex-direction: column;
+    gap: 60px;
+}
+
+.topBox {
+    display: flex;
+    flex-direction: row;
+    gap: 36px;
+}
+
+.done {
+    max-width: 272px;
+    width: 100%;
+}
+
+.inWork {
+    composes: done;
+}
+
+.doneBox {
+    /*overflow-y: auto;
+    overflow-x: hidden;*/
+    max-height: 160px;
+    display: flex;
+    flex-direction: column;
+    gap: 8px;
+    color: #00CCCC;
+    margin-top: 24px;
+}
+
+.inWorkOrders {
+    composes: doneBox;
+}

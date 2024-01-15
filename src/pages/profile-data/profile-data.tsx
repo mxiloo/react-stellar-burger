@@ -5,17 +5,19 @@ import styles from './profile-data.module.css'
 import {Button, EmailInput, Input, PasswordInput} from "@ya.praktikum/react-developer-burger-ui-components";
 import {changeDataUser} from "../../services/actions/user";
 import {userSelector} from "../../services/selectors/selectors";
-import {TUser} from "../../types/types";
+import {TUser, useAppSelector} from "../../types/types";
 
 
 function ProfileData() {
 
     const dispatch = useDispatch()
 
-    const user = useSelector(userSelector) as TUser
+    const user = useAppSelector(userSelector) as TUser | null
 
-    const [name, setName] = useState(user.name)
-    const [email, setEmail] = useState(user.email)
+    // console.log(user)
+
+    const [name, setName] = useState(user && user.name ? user.name : '');
+    const [email, setEmail] = useState(user && user.email ? user.email : '');
     const [password, setPassword] = useState('')
 
     const handleChangeData = (e: React.FormEvent) => {
@@ -25,15 +27,17 @@ function ProfileData() {
 
     const handleCancelChanges = (e: React.FormEvent) => {
         e.preventDefault();
-        setName(user.name)
-        setEmail(user.email)
+        if (user !== null) {
+            setName(user.name);
+            setEmail(user.email);
+        }
         setPassword('')
     };
 
     // console.log(password)
 
     return (
-        <form className={styles.form}>
+        <form className={styles.form} onSubmit={handleChangeData}>
             <Input
                 type={'text'}
                 placeholder={'Имя'}
@@ -66,7 +70,7 @@ function ProfileData() {
                 <Button htmlType="button" type="secondary" size="large" onClick={handleCancelChanges}>
                     Отменить
                 </Button>
-                <Button htmlType="button" type="primary" size="medium" onClick={handleChangeData}>
+                <Button htmlType="button" type="primary" size="medium">
                     Сохранить
                 </Button>
             </div>

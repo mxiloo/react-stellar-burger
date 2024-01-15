@@ -50,14 +50,14 @@ function Profile() {
                         </Button>
                     </div>
 
+                    <span className={`${styles.text} text text_type_main-default text_color_inactive mt-20`}>
+                        В этом разделе вы можете <br/> изменить свои персональные данные
+                    </span>
 
                 </div>
-                <Outlet />
+                <Outlet/>
             </div>
 
-            <span className={`${styles.text} text text_type_main-default text_color_inactive mt-20`}>
-                В этом разделе вы можете <br /> изменить свои персональные данные
-            </span>
 
         </div>
     )

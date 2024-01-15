@@ -23,8 +23,8 @@ const Protected = ({onlyUnAuth = false, component}: TProps) => {
         dispatch(checkUserAuth());
     }, [dispatch]);
 
-    const isAuthChecked = useSelector(isAuthCheckedSelector) as TIsAuthChecked;
-    const user = useSelector(userSelector) as TUser;
+    const isAuthChecked = useSelector(isAuthCheckedSelector);
+    const user = useSelector(userSelector);
     const location = useLocation();
 
     if (!isAuthChecked) {

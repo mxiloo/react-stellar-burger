@@ -20,58 +20,82 @@ import ProfileData from "../../pages/profile-data/profile-data";
 import ProfileOrders from "../../pages/prodile-orders/profile-orders";
 import ForgotPassword from "../../pages/forgot-password/forgot-password";
 import ResetPassword from "../../pages/reset-password/reset-password";
-import {isClickOrderListSelector} from "../../services/selectors/selectors";
+import {
+    isClickOrderFeedSelector,
+    isClickOrderListSelector,
+    orderFeedNumberSelector
+} from "../../services/selectors/selectors";
+import {useAppSelector, useAppDispatch} from "../../types/types";
+import OrderFeedPage from "../../pages/order-feed-page/order-feed-page";
 
 function App() {
 
     // const [item, setItem] = useState(null);
-    const isClickOrderList = useSelector(isClickOrderListSelector)
+    const isClickOrderList = useAppSelector(isClickOrderListSelector)
+
+    const ordedFeedNum = useAppSelector(orderFeedNumberSelector)
 
     const location = useLocation();
     const background = location.state && location.state.background;
 
-    const dispatch = useDispatch();
+    const dispatch = useAppDispatch();
 
     useEffect(() => {
         dispatch(fetchIngredients())
     }, [])
 
-    const modalHeader = <h2 className="text text_type_main-large">Детали ингредиента</h2>
+    const modalHeader = <p className="text text_type_main-large">Детали ингредиента</p>
+    const modalHeaderOrder = <p className=" text text_type_digits-default">#{ordedFeedNum}</p>
 
     return (
         <div className={styles.app}>
             <AppHeader/>
             <Routes location={background || location}>
-                <Route path="/reset-password" element= {<OnlyUnAuth component={<ResetPassword />}/>} />
-                <Route path="/forgot-password" element= {<OnlyUnAuth component={<ForgotPassword />}/>} />
-                <Route path="/profile" element= {<OnlyAuth component={<Profile />}/>}>
-                    <Route path="/profile" element={<ProfileData />} />
-                    <Route path="/profile/orders" element={<ProfileOrders />} />
+                <Route path="/reset-password" element={<OnlyUnAuth component={<ResetPassword/>}/>}/>
+                <Route path="/forgot-password" element={<OnlyUnAuth component={<ForgotPassword/>}/>}/>
+                <Route path="/profile" element={<OnlyAuth component={<Profile/>}/>}>
+                    <Route path="/profile" element={<ProfileData/>}/>
+                    <Route path="/profile/orders" element={<ProfileOrders/>}/>
                 </Route>
-                <Route path="/register" element={<OnlyUnAuth component={<Register />}/>}/>
-                <Route path="/login" element={<OnlyUnAuth component={<Login />}/>}/>
-                <Route path='/' element={<Home />} />
-                <Route path='/orderFeed' element={<OrderFeed />} />
-                <Route path='/ingredient-details/:id' element={<IngredientDetailPage />} />
-                <Route path='*' element={<NotFound />}/>
+                <Route path="/register" element={<OnlyUnAuth component={<Register/>}/>}/>
+                <Route path="/login" element={<OnlyUnAuth component={<Login/>}/>}/>
+                <Route path='/' element={<Home/>}/>
+                <Route path='/orderFeed' element={<OrderFeed/>}/>
+                <Route path='/orderFeed/:id' element={<OrderFeedPage/>}/>
+                <Route path="/profile/orders/:id" element={<OrderFeedPage />} />
+                <Route path='/ingredient-details/:id' element={<IngredientDetailPage/>}/>
+                <Route path='*' element={<NotFound/>}/>
             </Routes>
             {background && (
-                    <Routes>
-                        <Route path='/ingredient-details/:id' element={
-                            <Modal title={modalHeader}>
+                <Routes>
 
-                                <IngredientDetailPage />
+                    <Route path='/ingredient-details/:id' element={
+                        <Modal title={modalHeader}>
+                            <IngredientDetailPage/>
+                        </Modal>
+                    }/>
 
-                            </Modal>
-                        } />
-                    </Routes>
+                    <Route path='orderFeed/:id' element={
+                        <Modal title={null}>
+
+                            <OrderFeedPage/>
+
+                        </Modal>
+                    }/>
+
+                    <Route path="/profile/orders/:id" element={
+                        <Modal title={null}>
+                            <OrderFeedPage/>
+                        </Modal>
+                    } />
+                </Routes>
             )}
             {isClickOrderList && (
                 <Routes>
                     <Route path='/order' element={
                         <Modal title={null}>
 
-                            <OrderDetails />
+                            <OrderDetails/>
 
                         </Modal>
                     }>
