@@ -1,0 +1,86 @@
+.section {
+    width: 640px;
+    margin: auto;
+}
+
+.content {
+    margin: -30px auto 40px;
+}
+
+.number {
+    display: flex;
+    justify-content: center;
+    margin-bottom: 40px;
+}
+
+.name {
+    margin-bottom: 12px;
+}
+
+.status {
+    margin-bottom: 60px;
+    color: #00CCCC;
+}
+
+.ingredients {
+    margin-bottom: 24px;
+}
+
+.ingredientBox {
+    max-height: 366px;
+    overflow-x: hidden;
+    overflow-y: auto;
+    display: flex;
+    flex-direction: column;
+    gap: 16px;
+    margin-bottom: 40px;
+}
+
+.ingredient {
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    justify-content: space-between;
+}
+
+.leftSide {
+    display: flex;
+    flex-direction: row;
+    gap: 16px;
+    align-items: center;
+}
+
+.img {
+    border-radius: 50%;
+    border: 2px solid rgb(128,26,178);
+    background-color: #131316;
+    width: 70px;
+    height: 70px;
+    position: relative;
+    object-fit: cover;
+}
+
+.priceIngredient {
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    gap: 8px;
+}
+
+.date {
+    color: #8585AD;
+}
+
+.bottomBox {
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.price {
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    gap: 8px;
+}

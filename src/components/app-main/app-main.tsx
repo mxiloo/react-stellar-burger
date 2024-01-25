@@ -6,10 +6,10 @@ import styles from './main.module.css'
 function AppMain() {
 
     return (
-        <main className={styles.main}>
+        <div className={styles.main}>
             <BurgerIngredients  />
             <BurgerConstructor />
-        </main>
+        </div>
     )
 }
 

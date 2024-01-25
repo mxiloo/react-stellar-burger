@@ -9,7 +9,7 @@ import {TIngredients, TIngredientsArray} from "../../types/types";
 
 type TConstrElement = {
     item: TIngredients,
-    index: number
+    index: number,
 }
 
 type TDragItem = {
@@ -27,8 +27,9 @@ const ConstrElement = ({item, index}: TConstrElement) => {
     const dispatch = useDispatch();
 
     // Удаление ингредиента
-    const deleteElement = useCallback((_constId: number) => {
+    const deleteElement = useCallback((_constId) => {
         dispatch(deleteIngredient(_constId))
+        console.log(_constId)
     }, [])
 
     const findIndex = (item: TIngredients) => {

@@ -1,6 +1,7 @@
 import {createAsyncThunk} from "@reduxjs/toolkit";
 import {addNumber} from "../reducers/order-number";
 import {BASE_URL} from "../../utils/api";
+import {setIsLoading} from "../reducers/preloader-slice";
 
 
 const checkResponse = (res: Response) => {
@@ -10,6 +11,8 @@ const checkResponse = (res: Response) => {
     }
     return Promise.reject(`Ошибка ${res.status}`);
 }
+
+let token = localStorage.getItem("accessToken") as string
 
 export const setOrder = createAsyncThunk<void, string[]>(
     'order/post',
@@ -21,6 +24,7 @@ export const setOrder = createAsyncThunk<void, string[]>(
             method: "POST",
             headers: {
                 'Content-Type': 'application/json',
+                authorization: token
             },
             body: JSON.stringify({
                 'ingredients': dataId

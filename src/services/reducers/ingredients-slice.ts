@@ -1,7 +1,15 @@
-import { createSlice } from "@reduxjs/toolkit";
+import {createSlice, PayloadAction} from "@reduxjs/toolkit";
 import {fetchIngredients} from "../actions/ingredients-api";
+import {TIngredients} from "../../types/types";
 
-const initialState = {
+type TIngredientsSlice = {
+    data: TIngredients[],
+    error: string | unknown,
+    isLoading: boolean,
+    count: number,
+}
+
+const initialState: TIngredientsSlice = {
     data: [],
     error: '',
     isLoading: false,
@@ -11,8 +19,9 @@ const initialState = {
 const ingredientsSlice = createSlice({
     name: 'ingredient',
     initialState,
+    reducers: {},
     extraReducers: {
-        [fetchIngredients.fulfilled.type]: (state, action) => {
+        [fetchIngredients.fulfilled.type]: (state, action: PayloadAction<TIngredients[]>) => {
             state.isLoading = false;
             state.error = '';
             state.data = action.payload;
@@ -21,15 +30,14 @@ const ingredientsSlice = createSlice({
             state.isLoading = true;
             state.error = '';
         },
-        [fetchIngredients.rejected.type]: (state, action) => {
+        [fetchIngredients.rejected.type]: (state, action: PayloadAction<string | unknown>) => {
             state.isLoading = false;
             state.error = action.payload;
         },
-        counter: (state, action) => {
+        counter: (state, action: PayloadAction<number>) => {
             state.count = action.payload
         }
     }
 })
 
-export const {ingredientsUpload, ingredientsUploadError, ingredientsUploading, counter} = ingredientsSlice.actions;
 export default ingredientsSlice.reducer;

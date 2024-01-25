@@ -1,7 +1,15 @@
-import { createSlice } from "@reduxjs/toolkit";
+import {createSlice, PayloadAction} from "@reduxjs/toolkit";
 import {setOrder} from "../actions/set-orders-api";
+import {TIngredients} from "../../types/types";
 
-const initialState = {
+type TOrderSlice = {
+    data: TIngredients[],
+    error: string | unknown,
+    isLoading: boolean,
+    number: string | unknown,
+}
+
+const initialState: TOrderSlice = {
     data: [],
     error: '',
     isLoading: false,
@@ -11,6 +19,7 @@ const initialState = {
 const orderSlice = createSlice({
     name: 'order',
     initialState,
+    reducers: {},
     extraReducers: {
         [setOrder.fulfilled.type]: (state) => {
             state.isLoading = false;
@@ -21,7 +30,7 @@ const orderSlice = createSlice({
             state.error = '';
         },
 
-        [setOrder.rejected.type]: (state, action) => {
+        [setOrder.rejected.type]: (state, action: PayloadAction<string | unknown>) => {
             state.isLoading = false;
             state.error = action.payload;
         }
