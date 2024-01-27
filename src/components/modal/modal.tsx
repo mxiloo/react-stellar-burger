@@ -29,6 +29,8 @@ function Modal({children, title}: TModal) {
             navigate('/orderFeed');
         } else if (location.pathname.includes("/profile/orders")) {
             navigate('/profile/orders')
+        } else if (location.pathname.includes("/order")) {
+            navigate('/')
         }
     }
 

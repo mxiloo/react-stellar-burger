@@ -6,7 +6,7 @@ function IngredientDetails ({el}: {el: TIngredients | undefined}) {
 
     return (
             <div>
-                <div className={styles.container}>
+                <div className={styles.containerDetails}>
 
                     <img src={el?.image_large} alt={el?.name} className='mb-4'/>
                     <p className="text text_type_main-medium mb-8">{el?.name}</p>
