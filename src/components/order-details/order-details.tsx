@@ -9,7 +9,7 @@ function OrderDetails() {
 
     const orderNum: string | unknown = useSelector(orderNumSelector);
 
-    const isLoading = useAppSelector(isLoadingSelector)
+    const isLoading = useAppSelector(isLoadingSelector);
 
     return (
 

@@ -16,7 +16,7 @@ function OrderFeedCard(order: IOrderCard) {
 
     let orderIng = order.order.ingredients.map((id) =>
         ingredients.find((item) => item._id === id) as TIngredients
-    )
+    );
 
     const initValue = 0;
     const sum = orderIng.reduce(

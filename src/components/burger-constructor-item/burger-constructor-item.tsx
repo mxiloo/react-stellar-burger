@@ -1,16 +1,15 @@
-import {ConstructorElement, Button, CurrencyIcon, DragIcon } from '@ya.praktikum/react-developer-burger-ui-components';
+import {ConstructorElement, DragIcon } from '@ya.praktikum/react-developer-burger-ui-components';
 import styles from "../burger-constructor/constructor.module.css";
-import React, {useCallback, useEffect} from "react";
-import {useDispatch, useSelector} from "react-redux";
+import React, {useCallback} from "react";
 import {useDrag, useDrop} from "react-dnd";
 import {changeIngredients, deleteIngredient} from "../../services/reducers/burgerSlice";
 import {draggedElementsSelector} from "../../services/selectors/selectors";
-import {TIngredients, TIngredientsArray} from "../../types/types";
+import {TIngredients, useAppDispatch, useAppSelector} from "../../types/types";
 
 type TConstrElement = {
     item: TIngredients,
     index: number,
-}
+};
 
 type TDragItem = {
     ingredient: TIngredients
@@ -22,9 +21,9 @@ type TCollectedProps = {
 
 const ConstrElement = ({item, index}: TConstrElement) => {
 
-    const burgerArray = useSelector(draggedElementsSelector) as TIngredientsArray
+    const burgerArray = useAppSelector(draggedElementsSelector);
 
-    const dispatch = useDispatch();
+    const dispatch = useAppDispatch();
 
     // Удаление ингредиента
     const deleteElement = useCallback((_constId) => {

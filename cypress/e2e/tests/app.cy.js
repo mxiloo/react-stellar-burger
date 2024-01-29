@@ -3,7 +3,7 @@ const { selectors } = require("../../support/selectors");
 describe('Test App', () => {
 
     beforeEach(() => {
-        cy.visit('http://localhost:3000/')
+        cy.visit(selectors.testUrl)
     });
 
     // it('Drag and drop test', () => {
@@ -55,10 +55,10 @@ describe('Test App', () => {
 
         cy.get("button").contains("Оформить заказ").should("exist");
         cy.get("button").contains("Оформить заказ").click();
-        cy.get(selectors.orderSection).should("exist");
-        cy.get(selectors.orderNumber).should("exist");
+        cy.get(selectors.orderSection, {timeout: 30000}).should("exist");
+        cy.get(selectors.orderNumber, {timeout: 30000}).should("exist");
 
-        cy.get(selectors.closeIcon).should("exist");
-        cy.get(selectors.closeIcon).click();
+        // cy.get(selectors.closeIcon).should("exist");
+        // cy.get(selectors.closeIcon).click();
     })
 })

@@ -1,12 +1,8 @@
 import { setAuthChecked, setUser } from "../reducers/user-slice";
 import {BASE_URL} from "../../utils/api";
+import {checkResponse} from "../../utils/api";
+import {store} from "../store";
 
-const checkResponse = (res) => {
-    if (res.ok) {
-        return res.json();
-    }
-    return Promise.reject(`Ошибка ${res.status}`);
-}
 
 // Обновление токена
 export const refreshToken = () => {
@@ -22,12 +18,12 @@ export const refreshToken = () => {
     }).then(checkResponse)
 }
 
-const fetchWithRefresh = async (url, options) => {
+const fetchWithRefresh = async (url: string, options: any) => {
     try {
         const res = await fetch(url, options);
         return await checkResponse(res);
-    } catch (err) {
-        if (err.message === "jwt expired") {
+    } catch (err: string | unknown) {
+        if ((err as Error).message === "jwt expired") {
             const refreshData = await refreshToken();
             if (!refreshData.success) {
                 return Promise.reject(refreshData);
@@ -44,8 +40,8 @@ const fetchWithRefresh = async (url, options) => {
 };
 
 // Вход
-export const login = (email, password) => {
-    return (dispatch) => {
+export const login = (email: string, password: string) => {
+    return (dispatch: typeof store.dispatch) => {
         return fetch(`${BASE_URL}/auth/login`, {
             method: "POST",
             headers: {
@@ -77,7 +73,7 @@ export const login = (email, password) => {
 };
 
 // Регистрация пользователя
-export const registerUser = (name, email, password) => {
+export const registerUser = (name: string, email: string, password: string) => {
     return () => {
         return fetch(`${BASE_URL}/auth/register`, {
             method: "POST",
@@ -113,7 +109,7 @@ export const registerUser = (name, email, password) => {
 
 // Получение пользователя
 export const getUser = () => {
-    return (dispatch) => {
+    return (dispatch: typeof store.dispatch) => {
         return fetchWithRefresh(`${BASE_URL}/auth/user`, {
             method: "GET",
             headers: {
@@ -132,7 +128,7 @@ export const getUser = () => {
 
 // Проверка на наличие пользователя
 export const checkUserAuth = () => {
-    return (dispatch) => {
+    return (dispatch: typeof store.dispatch) => {
         if (localStorage.getItem("accessToken")) {
             dispatch(getUser())
                 .catch((error) => {
@@ -170,7 +166,7 @@ export const logOut = () => {
 }
 
 // Забыли пароль
-export const forgotPassword = (email) => {
+export const forgotPassword = (email: string) => {
     return () => {
         return fetch(`${BASE_URL}/password-reset`, {
             method: "POST",
@@ -186,7 +182,7 @@ export const forgotPassword = (email) => {
 }
 
 // Смена пароля
-export const resetPassword = (password, token) => {
+export const resetPassword = (password: string, token: string) => {
     return () => {
         return fetch(`${BASE_URL}/password-reset/reset`, {
             method: "POST",
@@ -203,13 +199,13 @@ export const resetPassword = (password, token) => {
 }
 
 // Изменение данных в профиле
-export const changeDataUser = (name, email) => {
-    return (dispatch) => {
+export const changeDataUser = (name: string | undefined, email: string | undefined) => {
+    return (dispatch: typeof store.dispatch) => {
         return fetch(`${BASE_URL}/auth/user`, {
             method: "PATCH",
             headers: {
                 "Content-Type": "application/json",
-                authorization: localStorage.getItem('accessToken')
+                authorization: localStorage.getItem('accessToken') as string
             },
             body: JSON.stringify({
                 "name": name,

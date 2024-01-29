@@ -4,11 +4,17 @@ import {useParams} from 'react-router-dom';
 import {TIngredients, useAppDispatch, useAppSelector} from '../../types/types';
 import { CurrencyIcon, FormattedDate } from '@ya.praktikum/react-developer-burger-ui-components';
 import {ingredientsSelector} from "../../services/selectors/selectors";
-import {v4 as uuidv4} from "uuid";
 import {setOrderNumber} from "../../services/reducers/order-feed-number-slice";
 import Preloader from "../../components/preloader/preloader";
 import {connect, disconnect} from "../../services/actions/order-feed-action";
 import {SERVER_URL} from "../order-feed/order-feed";
+
+type TIngredientsInfo = {
+    count: number,
+    totalPrice: number,
+}
+
+type TMerge = TIngredients & TIngredientsInfo
 
 const OrderFeedPage: FC = () => {
 
@@ -21,6 +27,22 @@ const OrderFeedPage: FC = () => {
     const order = orderFeed?.orders?.find((order) => order._id === id);
 
     const ingredients = useAppSelector(ingredientsSelector);
+
+    let ingredientsInfo: { [key: string]: TMerge } = {};
+
+    order?.ingredients?.forEach((element: string) => {
+        let ingredient = ingredients.find((item) => item._id === element) as TIngredients;
+        if (ingredientsInfo[ingredient._id]) {
+            ingredientsInfo[ingredient._id].count += 1;
+            ingredientsInfo[ingredient._id].totalPrice += ingredient.price;
+        } else {
+            ingredientsInfo[ingredient._id] = {
+                count: 1,
+                totalPrice: ingredient.price,
+                ...ingredient
+            };
+        }
+    });
 
     useEffect(() => {
         dispatch(connect(SERVER_URL))
@@ -63,19 +85,18 @@ const OrderFeedPage: FC = () => {
                 <p className={styles.ingredients + " text text_type_main-medium"}>Состав:</p>
 
                 <div className={styles.ingredientBox + ' custom-scroll'}>
-                    {ingredientsOrder.map((element) => (
-                        <div key={uuidv4()} className={styles.ingredient}>
+                    {Object.values(ingredientsInfo).map((ingredient) => (
+                        <div key={ingredient._id} className={styles.ingredient}>
                             <div className={styles.leftSide}>
-                                <img src={element?.image} alt={element?.name} className={styles.img} />
-                                <p className={styles.nameIngredient + " text text_type_main-default"}>{element?.name}</p>
+                                <img src={ingredient.image} alt={ingredient.name} className={styles.img} />
+                                <p className={styles.nameIngredient + " text text_type_main-default"}>{ingredient.name}</p>
                             </div>
 
                             <p className={styles.priceIngredient + " text text_type_digits-default"}>
-                                {element?.type === 'bun' ? `2 x ${element?.price}` : `1 x ${element?.price}`}
+                                {ingredient.count} x {ingredient.totalPrice}
                                 <CurrencyIcon type="primary" />
                             </p>
                         </div>
-
                     ))}
 
                 </div>

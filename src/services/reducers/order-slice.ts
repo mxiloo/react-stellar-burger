@@ -9,7 +9,7 @@ type TOrderSlice = {
     number: string | unknown,
 }
 
-const initialState: TOrderSlice = {
+export const initialState: TOrderSlice = {
     data: [],
     error: '',
     isLoading: false,

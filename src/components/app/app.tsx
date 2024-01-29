@@ -2,10 +2,8 @@ import React from 'react'
 import {useEffect} from 'react'
 import styles from "./app.module.css";
 import AppHeader from "../app-header/app-header";
-
 import Modal from '../modal/modal'
 import OrderDetails from "../order-details/order-details";
-import {useDispatch, useSelector} from "react-redux";
 import {fetchIngredients} from "../../services/actions/ingredients-api";
 import {Route, Routes, useLocation} from "react-router-dom";
 import Home from "../../pages/home";
@@ -77,9 +75,7 @@ function App() {
 
                     <Route path='orderFeed/:id' element={
                         <Modal title={null}>
-
                             <OrderFeedPage/>
-
                         </Modal>
                     }/>
 
@@ -90,6 +86,7 @@ function App() {
                     } />
                 </Routes>
             )}
+
             {isClickOrderList && (
                 <Routes>
                     <Route path='/order' element={

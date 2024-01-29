@@ -3,7 +3,6 @@ import styles from './Header.module.css';
 import {BurgerIcon, ListIcon, Logo, ProfileIcon} from '@ya.praktikum/react-developer-burger-ui-components';
 import {NavLink} from "react-router-dom";
 
-
 function AppHeader() {
 
     type TIsActive = {

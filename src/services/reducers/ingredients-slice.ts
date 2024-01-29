@@ -9,7 +9,7 @@ type TIngredientsSlice = {
     count: number,
 }
 
-const initialState: TIngredientsSlice = {
+export const initialState: TIngredientsSlice = {
     data: [],
     error: '',
     isLoading: false,

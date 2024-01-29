@@ -2,12 +2,13 @@ import styles from "../forgot-password/forgot-password.module.css";
 import {Button, Input, PasswordInput} from "@ya.praktikum/react-developer-burger-ui-components";
 import {NavLink, useNavigate} from "react-router-dom";
 import React, {useState} from "react";
-import {useDispatch} from "react-redux";
+
 import {resetPassword} from "../../services/actions/user";
+import {useAppDispatch} from "../../types/types";
 
 function ResetPassword() {
 
-    const dispatch = useDispatch()
+    const dispatch = useAppDispatch()
     const navigate = useNavigate()
 
     const [password, setPassword] = useState('');

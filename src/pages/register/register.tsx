@@ -2,12 +2,13 @@ import styles from "./register.module.css";
 import {Button, EmailInput, Input, PasswordInput} from "@ya.praktikum/react-developer-burger-ui-components";
 import {Link, useNavigate} from "react-router-dom";
 import React, {useState} from "react";
-import {useDispatch} from "react-redux";
+
 import {registerUser} from "../../services/actions/user";
+import {useAppDispatch} from "../../types/types";
 
 function Register() {
 
-    const dispatch = useDispatch()
+    const dispatch = useAppDispatch()
 
 
     const [name, setName] = useState('');

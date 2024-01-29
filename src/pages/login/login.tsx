@@ -2,11 +2,12 @@ import styles from './login.module.css';
 import { EmailInput, PasswordInput, Button } from '@ya.praktikum/react-developer-burger-ui-components';
 import React, {useState} from "react";
 import {Link} from "react-router-dom";
-import {useDispatch} from "react-redux";
 import {login} from "../../services/actions/user";
+import {useAppDispatch} from "../../types/types";
+
 
 function Login () {
-    const dispatch = useDispatch();
+    const dispatch = useAppDispatch();
     const [email, setEmail] = useState("");
     const [password, setPassword] = useState("");
 

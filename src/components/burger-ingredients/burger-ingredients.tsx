@@ -2,35 +2,34 @@ import React, {useRef} from "react";
 import styles from './burger-ingredients.module.css';
 import {Tab} from '@ya.praktikum/react-developer-burger-ui-components';
 import Item from "../burger-ingredients-item/burger-ingredients-item";
-import {useSelector} from "react-redux";
 
 import { useInView } from 'react-intersection-observer';
 import {ingredientsSelector} from "../../services/selectors/selectors";
-import {TIngredientsArray} from "../../types/types";
+import {useAppSelector} from "../../types/types";
 
 const BurgerIngredients = () => {
 
     const [current, setCurrent] = React.useState('one');
 
-    const ingredients = useSelector(ingredientsSelector) as TIngredientsArray
+    const ingredients = useAppSelector(ingredientsSelector);
 
-    const containerRef = useRef(null)
-    const bunRef = useRef(null)
-    const mainRef = useRef(null)
-    const sauceRef = useRef(null)
+    const containerRef = useRef(null);
+    const bunRef = useRef(null);
+    const mainRef = useRef(null);
+    const sauceRef = useRef(null);
 
     const [inViewBunRef, bunIsInView] = useInView({
         threshold: 0.1,
         root: containerRef.current
-    })
+    });
     const [inViewSauceRef, sauceIsInView] = useInView({
         threshold: 0.3,
         root: containerRef.current
-    })
+    });
     const [inViewMainRef, mainIsInView] = useInView({
         threshold: 0.5,
         root: containerRef.current
-    })
+    });
 
     const sortingArray = (type: string) => {
         return ingredients.filter(element => element.type === type)

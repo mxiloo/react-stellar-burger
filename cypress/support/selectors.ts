@@ -9,4 +9,5 @@ export const selectors = {
     closeIcon: 'div[class*=closeIcon]',
     containerDetails: 'div[class*=containerDetails]',
     rootApp: '#root',
+    testUrl: 'http://localhost:3000/'
 }

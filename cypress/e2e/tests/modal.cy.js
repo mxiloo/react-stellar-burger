@@ -2,7 +2,7 @@ const { selectors } = require("../../support/selectors");
 
 describe('Popup tests', () => {
     beforeEach(() => {
-        cy.visit('http://localhost:3000/')
+        cy.visit(selectors.testUrl)
     });
 
     it('Closed by button', () => {
