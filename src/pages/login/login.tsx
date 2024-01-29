@@ -18,18 +18,19 @@ function Login () {
         setPassword(evt.target.value);
     };
 
-    const onClick = () => {
+    const onSubmit = (evt: React.FormEvent) => {
+        evt.preventDefault();
         dispatch(login(email, password));
     };
 
     return (
         <div className={styles.container}>
 
-            <form className={styles.form}>
+            <form className={styles.form} onSubmit={onSubmit}>
                 <h2 className='text text_type_main-medium mb-6'>Вход</h2>
                 <EmailInput onChange={onChangeEmail} value={email} name={'email'} isIcon={false}/>
                 <PasswordInput onChange={onChangePass} value={password} name={'password'} extraClass="mb-2"/>
-                <Button htmlType="button" type="primary" size="medium" onClick={onClick}>
+                <Button htmlType="submit" type="primary" size="medium">
                     Войти
                 </Button>
             </form>

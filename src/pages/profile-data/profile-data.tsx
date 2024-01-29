@@ -70,7 +70,7 @@ function ProfileData() {
                 <Button htmlType="button" type="secondary" size="large" onClick={handleCancelChanges}>
                     Отменить
                 </Button>
-                <Button htmlType="button" type="primary" size="medium">
+                <Button htmlType="submit" type="primary" size="medium">
                     Сохранить
                 </Button>
             </div>
