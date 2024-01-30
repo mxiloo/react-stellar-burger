@@ -2,12 +2,13 @@ import styles from "./register.module.css";
 import {Button, EmailInput, Input, PasswordInput} from "@ya.praktikum/react-developer-burger-ui-components";
 import {Link, useNavigate} from "react-router-dom";
 import React, {useState} from "react";
-import {useDispatch} from "react-redux";
+
 import {registerUser} from "../../services/actions/user";
+import {useAppDispatch} from "../../types/types";
 
 function Register() {
 
-    const dispatch = useDispatch()
+    const dispatch = useAppDispatch()
 
 
     const [name, setName] = useState('');
@@ -36,12 +37,12 @@ function Register() {
         <div>
             <div className={styles.container}>
                 {/*onChange={hadleChangeUserData}*/}
-                <form className={styles.form}>
+                <form className={styles.form} onSubmit={onClick}>
                     <h2 className='text text_type_main-medium mb-6'>Регистрация</h2>
                     <Input onChange={onChangeName} type={'text'} placeholder={'Имя'} value={name} name={'name'}/>
                     <EmailInput onChange={onChangeEmail} value={email} name={'email'} isIcon={false} />
                     <PasswordInput onChange={onChangePass} value={password} name={'password'}/>
-                    <Button htmlType="button" type="primary" size="medium" onClick={onClick}>
+                    <Button htmlType="submit" type="primary" size="medium">
                         Зарегистрироваться
                     </Button>
                 </form>

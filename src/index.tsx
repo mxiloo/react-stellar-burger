@@ -5,11 +5,10 @@ import App from "./components/app/app";
 import reportWebVitals from "./reportWebVitals";
 
 import {store} from "./services/store";
-import { Provider } from "react-redux";
-import { DndProvider } from "react-dnd";
-import { HTML5Backend } from "react-dnd-html5-backend";
+import {Provider} from "react-redux";
+import {DndProvider} from "react-dnd";
+import {HTML5Backend} from "react-dnd-html5-backend";
 import {BrowserRouter} from "react-router-dom";
-
 
 
 ReactDOM.render(
@@ -24,7 +23,7 @@ ReactDOM.render(
         </Provider>
 
     </React.StrictMode>,
-  document.getElementById("root")
+    document.getElementById("root")
 );
 
 // If you want to start measuring performance in your app, pass a function

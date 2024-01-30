@@ -7,7 +7,7 @@ type TModalSlice = {
     clickOrderFeed: boolean,
 }
 
-const initialState: TModalSlice = {
+export const initialState: TModalSlice = {
     isOpen: false,
     clickIngredient: false,
     clickOrder: false,
@@ -32,7 +32,6 @@ const modalSlice = createSlice({
             state.clickOrder = action.payload
             console.log(state.clickOrder)
         },
-
         closeModal: (state, action: PayloadAction<boolean>) => {
             state.isOpen = action.payload
             state.clickIngredient = action.payload

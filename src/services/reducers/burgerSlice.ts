@@ -1,7 +1,7 @@
 import {createSlice, PayloadAction} from "@reduxjs/toolkit";
-import {TBurger, TIngredients} from "../../types/types";
+import {TBun, TBurger, TIngredients} from "../../types/types";
 
-const initialState: TBurger = {
+export const initialState: TBurger = {
     bun: [],
     ingredients: [],
 }
@@ -18,10 +18,11 @@ export const burgerSlice = createSlice({
     reducers: {
         addIngredient: (store, action: PayloadAction<TIngredients>) => {
             store.ingredients.push(action.payload)
+            console.log(action.payload)
         },
-        addBun: (store, action: PayloadAction<TIngredients>) => {
+        addBun: (store, action: PayloadAction<TBun>) => {
             store.bun = [action.payload];
-            // console.log(action.payload)
+            console.log(action.payload)
         },
         changeIngredients: (store, action: PayloadAction<TIndex>) => {
             const {indexForm, indexTo}: TIndex = action.payload;

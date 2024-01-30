@@ -1,16 +1,16 @@
 import React from 'react';
 import {useState} from "react";
-import {useDispatch, useSelector} from "react-redux";
+
 import styles from './profile-data.module.css'
 import {Button, EmailInput, Input, PasswordInput} from "@ya.praktikum/react-developer-burger-ui-components";
 import {changeDataUser} from "../../services/actions/user";
 import {userSelector} from "../../services/selectors/selectors";
-import {TUser, useAppSelector} from "../../types/types";
+import {TUser, useAppDispatch, useAppSelector} from "../../types/types";
 
 
 function ProfileData() {
 
-    const dispatch = useDispatch()
+    const dispatch = useAppDispatch()
 
     const user = useAppSelector(userSelector) as TUser | null
 
@@ -70,7 +70,7 @@ function ProfileData() {
                 <Button htmlType="button" type="secondary" size="large" onClick={handleCancelChanges}>
                     Отменить
                 </Button>
-                <Button htmlType="button" type="primary" size="medium">
+                <Button htmlType="submit" type="primary" size="medium">
                     Сохранить
                 </Button>
             </div>

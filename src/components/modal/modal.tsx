@@ -4,9 +4,10 @@ import ReactDOM from "react-dom";
 import {CloseIcon} from "@ya.praktikum/react-developer-burger-ui-components";
 import styles from './modal.module.css'
 import Overlay from "../modal-overlay/overlay";
-import {useDispatch} from "react-redux";
+
 import {closeModal} from "../../services/reducers/modal-slice";
-import {useLocation, useNavigate} from "react-router-dom";
+import {useNavigate} from "react-router-dom";
+import {useAppDispatch} from "../../types/types";
 
 const modalRoot = document.getElementById('react-modals') as HTMLElement
 
@@ -17,19 +18,12 @@ type TModal = {
 
 function Modal({children, title}: TModal) {
 
-    const dispatch = useDispatch()
-    const navigate = useNavigate()
-    const location = useLocation();
+    const dispatch = useAppDispatch()
+    const navigate = useNavigate();
 
     const onClose = () => {
         dispatch(closeModal(false));
-        if (location.pathname.includes("/ingredient-details")) {
-            navigate('/');
-        } else if (location.pathname.includes("/orderFeed")) {
-            navigate('/orderFeed');
-        } else if (location.pathname.includes("/profile/orders")) {
-            navigate('/profile/orders')
-        }
+        navigate(-1)
     }
 
     useEffect(() => {

@@ -25,7 +25,7 @@ export type TIngredients = {
     _constId: string,
     __v: number,
     _id: string,
-    unicId: string,
+
 };
 
 export type TBun = TIngredients;

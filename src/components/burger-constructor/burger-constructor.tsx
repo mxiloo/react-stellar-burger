@@ -1,7 +1,6 @@
 import React from 'react'
 import {ConstructorElement, Button, CurrencyIcon} from '@ya.praktikum/react-developer-burger-ui-components';
 import styles from './constructor.module.css'
-import {useDispatch, useSelector} from "react-redux";
 import {isOpenModal, isClickOrder} from "../../services/reducers/modal-slice";
 
 import {setOrder} from "../../services/actions/set-orders-api";
@@ -11,7 +10,7 @@ import {addBun, addIngredient} from "../../services/reducers/burgerSlice";
 import {v4 as uuidv4} from "uuid";
 import ConstrElement from "../burger-constructor-item/burger-constructor-item";
 import {NavLink, useLocation, useNavigate} from "react-router-dom";
-import {TIngredients} from "../../types/types";
+import {TIngredients, useAppDispatch, useAppSelector} from "../../types/types";
 import {
     draggedBunSelector,
     draggedElementsSelector,
@@ -21,19 +20,19 @@ import {addNumber} from "../../services/reducers/order-number";
 
 const BurgerConstructor = () => {
 
-    const dispatch = useDispatch()
+    const dispatch = useAppDispatch();
 
-    const location = useLocation()
+    const location = useLocation();
 
-    const navigate = useNavigate()
+    const navigate = useNavigate();
 
-    const user = useSelector(userSelector)
+    const user = useAppSelector(userSelector);
 
-    const draggedElements = useSelector(draggedElementsSelector) as TIngredients[]
+    const draggedElements = useAppSelector(draggedElementsSelector);
 
-    const draggedBun = useSelector(draggedBunSelector) as TIngredients[]
+    const draggedBun = useAppSelector(draggedBunSelector);
 
-    let dataId: string[] = [...draggedElements.map(element => element._id), ...draggedBun.map(element => element._id)]
+    let dataId: string[] = [...draggedElements.map(element => element._id), ...draggedBun.map(element => element._id)];
 
     // console.log(dataId)
 

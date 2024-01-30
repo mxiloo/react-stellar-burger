@@ -3,11 +3,12 @@ import {NavLink, Outlet, useNavigate} from "react-router-dom";
 import {Button} from "@ya.praktikum/react-developer-burger-ui-components";
 import styles from './profile.module.css'
 import {logOut} from "../../services/actions/user";
-import {useDispatch} from "react-redux";
+import {useAppDispatch} from "../../types/types";
+
 
 function Profile() {
 
-    const dispatch = useDispatch()
+    const dispatch = useAppDispatch()
 
     const navigate = useNavigate()
 
